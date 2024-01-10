@@ -29,7 +29,14 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Up to Kredis is app specific installs
 gem 'timescaledb'
+
+gem "pagy", "~> 6.2"
+
+gem "chartkick", "~> 5.0"
+
+gem "groupdate", "~> 6.4"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

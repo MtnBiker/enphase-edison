@@ -3,7 +3,12 @@ class EnergiesController < ApplicationController
 
   # GET /energies or /energies.json
   def index
-    @energies = Energy.all
+    # @energies = Energy.all
+     if params[:query].present?
+       @pagy, @energies = pagy((Energy.search_energies(params[:query])))
+     else
+       @pagy, @energies = pagy((Energy.all))
+     end
   end
 
   # GET /energies/1 or /energies/1.json

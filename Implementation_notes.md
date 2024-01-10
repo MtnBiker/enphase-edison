@@ -28,3 +28,5 @@ gem 'timescaledb'
 bundle
 
 ### # do I need to CREATE EXTENSION IF NOT EXISTS timescaledb; -- in PGAdmin psql
+
+Pagy: many bits
