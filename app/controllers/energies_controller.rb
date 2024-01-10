@@ -1,5 +1,15 @@
 class EnergiesController < ApplicationController
   before_action :set_energy, only: %i[ show edit update destroy ]
+  
+  def import_enphase
+    Energy.import_enphase(params[:file_to_import])
+    redirect_to root_url, notice: "Latest data imported." # #{file_to_import} not available
+  end
+  
+  def import_edison
+    Energy.import_edison(params[:file_to_import])
+    redirect_to root_url, notice: "Latest data imported." # #{file_to_import} not available
+  end
 
   # GET /energies or /energies.json
   def index
