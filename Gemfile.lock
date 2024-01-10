@@ -220,6 +220,10 @@ GEM
     stringio (3.1.0)
     thor (1.3.0)
     timeout (0.4.1)
+    timescaledb (0.2.7)
+      activerecord
+      activesupport
+      pg (~> 1.2)
     turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -261,6 +265,7 @@ DEPENDENCIES
   rails (~> 7.1.2)
   selenium-webdriver
   stimulus-rails
+  timescaledb
   turbo-rails
   tzinfo-data
   web-console

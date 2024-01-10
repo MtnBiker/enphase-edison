@@ -1,14 +1,42 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Energies</h1>
+<h1>Enphase Energy Generated</h1>
+<!-- <p>Trim the seconds</p> -->
+<table class="index-table">
+  <thead class="table-thead"> <!-- Table head is not showing-->
+    <tr>
+      <th id="datetime" class="text-left py-3 px-6">When (as stored)</th>
+      <th id="dateinzone" class="text-left py-3 px-6">Local time</th>
+      <th id="enphase" class="text-right py-3 px-6">Energy Produced (Wh)</th>
+      <th id="from_sce" class="text-center py-3 px-6">From SCE (Wh) </th>
+      <th id="to_sce" class="text-center py-3 px-6">Sent to SCE (Wh) </th>
+      <th colspan="2"  class="text-center">Actions</th>
+    </tr>
+  </thead>
 
-<div id="energies">
-  <% @energies.each do |energy| %>
-    <%= render energy %>
-    <p>
-      <%= link_to "Show this energy", energy %>
-    </p>
+  <tbody class="">
+    <% @energies.each do |energy| %>
+      <%= render energy %>
+      <%#= render "energy_pagy", energy: @energy %>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="pag-bar mt-5 pt-5">
+  <%== pagy_bootstrap_nav(@pagy) %>
+</div>
+
+<!-- Graphs/Charts -->
+<%= render "graph_demos" %>
+
+<!-- Import -->
+<div class="container border border-secondary border-3 rounded-3 p-2">
+  <!-- url is not intuitive to me. -->
+  <%= form_with model: @energies, url: { action: "import" } do |form| %>
+    <%= form.label :file, "Import Enphase report—path must be hardwired in model.", class: "fs-3" %> 
+    <%= form.file_field :file %>
+    <%= submit_tag( "Import CSV" ) %>
   <% end %>
 </div>
 
-<%= link_to "New energy", new_energy_path %>
+<%#= link_to "New energy", new_energy_path %>

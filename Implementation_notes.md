@@ -20,3 +20,11 @@ t.float :from_sce
 t.float :to_sce
 
 t.timestamps
+
+rails new hadn't finished. A change to bin/dev. I created a new app to make sure I had the file right
+➜ rdm
+➜ gem install timescaledb # this doesn't get in the app, mayb bundle install timescaledb would
+gem 'timescaledb'
+bundle
+
+### # do I need to CREATE EXTENSION IF NOT EXISTS timescaledb; -- in PGAdmin psql
