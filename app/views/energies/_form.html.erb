@@ -1,0 +1,37 @@
+<%= form_with(model: energy) do |form| %>
+  <% if energy.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(energy.errors.count, "error") %> prohibited this energy from being saved:</h2>
+
+      <ul>
+        <% energy.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :datetime, style: "display: block" %>
+    <%= form.text_field :datetime %>
+  </div>
+
+  <div>
+    <%= form.label :enphase, style: "display: block" %>
+    <%= form.text_field :enphase %>
+  </div>
+
+  <div>
+    <%= form.label :from_sce, style: "display: block" %>
+    <%= form.text_field :from_sce %>
+  </div>
+
+  <div>
+    <%= form.label :to_sce, style: "display: block" %>
+    <%= form.text_field :to_sce %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

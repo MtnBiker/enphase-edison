@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  datetime: 
+  enphase: 1.5
+  from_sce: 1.5
+  to_sce: 1.5
+
+two:
+  datetime: 
+  enphase: 1.5
+  from_sce: 1.5
+  to_sce: 1.5
