@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Enphase Energy Generated</h1>
+<h1>Energy Generation and Use</h1>
 <!-- <p>Trim the seconds</p> -->
 <table class="index-table">
   <thead class="table-thead"> <!-- Table head is not showing-->
@@ -34,6 +34,15 @@
   <!-- url is not intuitive to me. -->
   <%= form_with model: @energies, url: { action: "import" } do |form| %>
     <%= form.label :file, "Import Enphase report—path must be hardwired in model.", class: "fs-3" %> 
+    <%= form.file_field :file %>
+    <%= submit_tag( "Import CSV" ) %>
+  <% end %>
+</div>
+
+<div class="container border border-secondary border-3 rounded-3 p-2">
+  <!-- url is not intuitive to me. -->
+  <%= form_with model: @sces, url: { action: "import" } do |form| %>
+    <%= form.label :file, "Import Southern California Edison Periodic Report – path must be hardwired in model, sce.rb", class: "fs-3" %> 
     <%= form.file_field :file %>
     <%= submit_tag( "Import CSV" ) %>
   <% end %>

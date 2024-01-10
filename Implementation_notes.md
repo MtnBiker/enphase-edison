@@ -30,3 +30,5 @@ bundle
 ### # do I need to CREATE EXTENSION IF NOT EXISTS timescaledb; -- in PGAdmin psql
 
 Pagy: many bits
+
+gem "solargraph" # For my installation, not for app

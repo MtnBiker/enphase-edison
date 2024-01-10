@@ -38,6 +38,8 @@ gem "chartkick", "~> 5.0"
 
 gem "groupdate", "~> 6.4"
 
+gem "solargraph"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
