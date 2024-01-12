@@ -5,13 +5,13 @@
 <table class="index-table">
   <thead class="table-thead"> <!-- Table head is not showing-->
     <tr>
-      <th colspan="1" class="text-center"></th>
-      <th colspan="3" class="text-center">Energy (Wh)</th>
+      <th colspan="1" class="text-center h-25"></th>
+      <th colspan="3" class="text-center h-25">Energy (Wh)</th>
     </tr>
-      <tr>
-      <th colspan="1" class="text-center"></th>
-      <th class="text-center">Enphase</th>
-      <th colspan="2" class="text-center">Edison</th>
+    <tr>
+      <th colspan="1" class="text-center h-25"></th>
+      <th class="text-center h-25">Enphase</th>
+      <th colspan="2" class="text-center h-25">Edison</th>
     </tr>
     <tr>
       <!-- <th id="datetime" class="text-center py-3 px-6">(as stored)</th> -->
@@ -43,16 +43,16 @@
   <%= form_with model: @energies, url: { action: "import_enphase" } do |form| %>
     <%= form.label :file, "Import Enphase report—path must be hardwired in model.", class: "fs-3" %> 
     <%= form.file_field :file %>
-    <%= submit_tag( "Import CSV" ) %>
+    <%= submit_tag( "Import Enphase csv" ) %>
   <% end %>
 </div>
 
 <div class="container border border-secondary border-3 rounded-3 p-2">
   <!-- url is not intuitive to me. -->
   <%= form_with model: @energies, url: { action: "import_edison" } do |form| %>
-    <%= form.label :file, "Import Southern California Edison Periodic Report – path must be hardwired in model, sce.rb", class: "fs-3" %> 
+    <%= form.label :file, "Import Edison Periodic Report – path must be hardwired in model", class: "fs-3" %> 
     <%= form.file_field :file %>
-    <%= submit_tag( "Import CSV" ) %>
+    <%= submit_tag( "Import Edison csv" ) %>
   <% end %>
 </div>
 

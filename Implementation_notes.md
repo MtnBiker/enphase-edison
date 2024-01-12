@@ -1,3 +1,8 @@
+Built on enphase2 app.
+Put all data in one table
+all date-time to datetime
+renamed columns to fit that scheme. Might want to change those, usual problem of succinct but descriptive
+
 ➜ rails new solar_enphase_edison -j esbuild -a propshaft --css bootstrap --database postgresql --skip-action-mailer --skip-action-mailbox --skip-action-cable
 Rails 7.1.2
 ruby 3.3.0 (2023-12-25 revision 5124f9ac75) [arm64-darwin23]
@@ -32,3 +37,21 @@ bundle
 Pagy: many bits
 
 gem "solargraph" # For my installation, not for app
+
+### See also Read-me
+
+https://www.mattmorgante.com/technology/csv
+and https://gorails.com/episodes/intro-to-importing-from-csv ~2015
+
+Both Enphase and Edison are in 15 minute increments (which is handy, one less difference). Formatting is different (double quotes around info, times shown differently although both local (not UTC))
+
+SCE data is local time (can tell by Received which is what SCE receives from us and the times line up with production)
+SCE has a one hour time period, i.e., start and stop, energy delivered and energy received in kWh
+Format of csv. First line which is midnight and SCE is delivering to Delicias
+Energy  Delivered time period,Usage Delivered(Real energy in kilowatt-hours)(Real energy in kilowatt-hours),Reading quality
+"2023-12-01 00:00:00 to 2023-12-01 00:15:00","0.070",""
+
+Enphase
+Date/Time,Energy Produced (Wh)
+2023-11-01 00:00:00 -0700,0
+Local time, but offset shown. I.e., this is midnight but showing TZ
