@@ -43,6 +43,7 @@ class Energy < ApplicationRecord
       # Energy_file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/SCE Reports/01 Dec 23 to 01 Jan 24.Received added to right.csv"
       # sce_file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/SCE Reports/01 Dec 23 to 01 Jan 24.original LibreOffice.csv"
       sce_file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/SCE Reports/LibreOffice.test_short.2023.11.csv"
+      sce_file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/SCE Reports/SCE Usage 8000435536 Dec 2022 to Dec 2023.withoutHeadersAndQuotes.csv"
       counter = 0
       row_slice_previous = "Haven't found a data row yet"
      

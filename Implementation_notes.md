@@ -55,3 +55,5 @@ Enphase
 Date/Time,Energy Produced (Wh)
 2023-11-01 00:00:00 -0700,0
 Local time, but offset shown. I.e., this is midnight but showing TZ
+
+Can import SCE with initial headers deleted, double quotes deleted and empty lines removed.
