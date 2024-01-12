@@ -1,0 +1,47 @@
+<!-- test -not working<%= scatter_chart [["2023-11-27T02:30:00.000Z", 0.0], ["2023-11-27T02:45:00.000Z", 1.0]],  xtitle: "Date", ytitle: "Wh per day", id: "chart-2" %>
+<p> end test</p> -->
+<h3>Dates are as of latest data loaded. Need to put this date in the titles TODO</h3>
+<!-- <h3 class="text-center">As of <%#= enphase.last.date-hour.to_fs(:rfc822) %></h3> -->
+<hr class="border-bottom border-3 border-dark">
+
+<!-- Received and Delivered and Produced -->
+<div class="text-center font-weight-bold">
+  <%= render 'layouts/sce_enphase_graph' %>
+</div>
+<hr class="border-bottom border-3 border-dark">
+
+<!-- Stack days -->
+<div class="text-center font-weight-bold">
+<%= line_chart Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :wh), title: "Days stacked Last Month (… chart)", ytitle: "Wh", color: "#D9A1FF" %>
+</div>
+<hr class="border-bottom border-3 border-dark">
+
+
+<!--  Last Month-->
+<div class="text-center font-weight-bold">
+<%= line_chart Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :wh), title: "Last Month (line chart)", ytitle: "Wh", color: "#D9A1FF" %>
+</div>
+<hr class="border-bottom border-3 border-dark">
+
+<!--  Current Month-->
+<div class="text-center font-weight-bold">
+<%= line_chart Energy.where(datetime: Date.today.beginning_of_month..Time.now).pluck(:datetime, :wh), title: "Current Month (line chart)", ytitle: "Wh", color: "#D9A1FF" %>
+</div>
+<hr class="border-bottom border-3 border-dark">
+
+<!-- Previous 30 days -->
+<div class="text-center font-weight-bold">
+<%= line_chart Energy.where(datetime: Time.now - 1.month..Time.now).pluck(:datetime, :wh), title: "Previous 30 days (line chart)", ytitle: "Wh", color: "#D9A1FF" %>
+</div>
+<hr class="border-bottom border-3 border-dark">
+
+<div class="text-center font-weight-bold">
+ <%= scatter_chart Energy.pluck(:datetime, :wh), xtitle: "Date", ytitle: "Wh per day", xmin: "2023-11-01", xmax: "2023-11-30", title: "scatter chart" %>
+</div>
+<hr class="border-bottom border-3 border-dark">
+
+<!-- <%= scatter_chart Energy.where(datetime: Time.now - 14.day..Time.now - 13.day).pluck(:datetime, :wh), xtitle: "Date", ytitle: "Wh per day", title: "One day (scatter chart" , xmin: "2023-11-01", xmax: "2023-11-30"  %> -->
+
+<%#= line_chart Energy.group_by_day(:datetime).count %>
+
+

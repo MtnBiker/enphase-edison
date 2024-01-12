@@ -19,7 +19,8 @@ class Energy < ApplicationRecord
       puts "#{__LINE__}. row: #{row}" # the row, no quotes
       # puts "10. row.class: #{row.class}" # CSV::Row
       puts "1#{__LINE__}. row.to_hash #{row.to_hash}" #$ {:datetime=>"2023-11-30 22:15:00 -0800", :enphase=>"0"}. Need to strip the -0800 or whatever
-      Energy.create! row.to_hash
+      # Energy.create! row.to_hash
+      # upsert({ datetime: datetime, from_sce: second_col }, unique_by: :datetime)
     end
   end # def self.import_enphase(file)  
     

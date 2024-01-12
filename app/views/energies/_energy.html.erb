@@ -1,6 +1,5 @@
 <tr>
   <!-- <td class="text-left"><%#= energy.datetime %>&nbsp;&nbsp;</td> -->
-  <!-- Was energy.datetime.localtime.to_s.slice!(0, 23) -->
   <td class="text-center"><%= energy.datetime.localtime.strftime("%d %b %Y %_l:%M %P") %></td>
    <!-- <td class="text-center"><%= energy.datetime.localtime.to_fs(:rfc822) %></td>  -->
   <!-- Thu, 30 Nov 2023 16:00:00 -0800	result of above -->

@@ -57,3 +57,6 @@ Date/Time,Energy Produced (Wh)
 Local time, but offset shown. I.e., this is midnight but showing TZ
 
 Can import SCE with initial headers deleted, double quotes deleted and empty lines removed.
+
+➜ yarn add chartkick # is this needed. Charts getting "Loading…" Needed to add import "chartkick/chart.js";
+to app/javascript/application.js
