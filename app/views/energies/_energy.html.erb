@@ -3,10 +3,19 @@
   <td class="text-center"><%= energy.datetime.localtime.strftime("%d %b %Y %_l:%M %P") %></td>
    <!-- <td class="text-center"><%= energy.datetime.localtime.to_fs(:rfc822) %></td>  -->
   <!-- Thu, 30 Nov 2023 16:00:00 -0800	result of above -->
+  
+  <!-- The following so far only for calculating used and not in shown data (getting data twice but making sure don't screw it up-->
+  <% enphase = energy.enphase %>
+  <% from_sce = energy.from_sce %>
+  <% to_sce = energy.to_sce %>
+  <% used = enphase + from_sce - to_sce %>
+  
   <td class="text-center"><%= number_to_human(energy.enphase) %></td>  <!--  could change number_with_precision(energy.wh,  precision: 0) but if don't exceed 1kWh won't be needed -->
   <td class="text-end"><%= number_with_precision(energy.from_sce,{ precision: 0, delimiter: "," }) %></td> 
   <!-- Needs a comma -->
   <td class="text-end"><%= number_with_precision(energy.to_sce, precision: 0) %></td>
+  <!-- Used, i.e., consumed -->
+  <td class="text-end"><%= number_with_precision(used, precision: 0) %></td>
 
   
   <!-- Edit and destroy need an id and we don't have one with timescaledb -->

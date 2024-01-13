@@ -60,3 +60,29 @@ Can import SCE with initial headers deleted, double quotes deleted and empty lin
 
 ➜ yarn add chartkick # is this needed. Charts getting "Loading…" Needed to add import "chartkick/chart.js";
 to app/javascript/application.js. Now graphs working.
+
+Can import Enphase (without mod I think) and Edison with minimal mod.
+
+All rows aren't showing. The data is in the database. Maybe an issue with Pagy. TODO if don't make tables with Timescale
+
+### Timescale
+
+https://github.com/timescale/timescaledb Using TimescaleDB
+CREATE EXTENSION timescaledb; # success
+and already have gem "timescaledb"
+-- Then we convert it into a hypertable that is partitioned by time (may have to empty table to do this)
+SELECT create_hypertable('energies', 'datetime'); -- (1,public,energies,t) after Truncating table energies
+Reimported data (did Enphase first and Edison second as test of doing it in that order. Quick check it worked) BUT display order in app is weird. Not in descending order and that gaps in data. Wait for timescale though to see what's going on
+
+from the github page
+➜ tsdb "postgres://gscar@localhost:5432/energy_development" --stats ## got an error about pry
+
+Used (or consumed) = enphase + from_sce - to_sce. All are expressed as positive in the original data. Order is what I'm standardizing on at the moment
+Local time Produced From Sent to Used
+12 Oct 2023 8:15 am 0 30 50 -20, but enphase didn't report any production until 8:30 and it was 8 Wh (0.030, 0.050 from SCE original)
+
+## ToDo
+
+Record of data loading/importing-create table and at line at top
+
+Graphs of totals per day: For selectable time periods. Jan 5 to jan 25 e.g. Some present such as last year. Last month. Last 12 months And select received Del used etc

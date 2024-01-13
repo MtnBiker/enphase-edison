@@ -1,7 +1,8 @@
 class Energy < ApplicationRecord
   self.primary_key = "datetime"
+  acts_as_hypertable # copied from an example
   
-  before_save :convert_kwh_to_wh # defined below
+  # before_save :convert_kwh_to_wh # defined below, but not being used so have this line commented out
   
   # https://www.mattmorgante.com/technology/csv
   # and https://gorails.com/episodes/intro-to-importing-from-csv ~2015
@@ -12,6 +13,10 @@ class Energy < ApplicationRecord
     puts "#{__LINE__}.#{enphase_counter += 1}. file: #{file}. No file to left means file selection not working!" # empty
     # file shouldn't be hard wired, file should be the first variable below
     
+    # From bp, but the following was in the controller where params has a meaning.         
+    # file_to_import = params[:energy][:file ].tempfile.path
+    # puts "#{__LINE__}. tempfile_path: #{tempfile_path}"
+    # 
     # created file_to_import so could put on notice and to keep separate from file which isn't working
     file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/Enphase Monthly Reports/all_enphase_for.2023.csv" # easier if have to destroy db
     
@@ -33,16 +38,6 @@ class Energy < ApplicationRecord
   end # def self.import_enphase(file)  
     
   def self.import_edison(file)
-    # puts "#{energy.where(from_energy: "2023-12-01 15:15:00")}"
-    
-    # to line 16 from trying to get id by datetime
-    # id_sql = energy.find_by_sql("SELECT id FROM energies WHERE (energies.datetime = '2023-11-30 16:00:00-08')" #undefined local variable or method `energy' for class Energy)
-    # id_sql = Energy.find_by_sql("SELECT id FROM energies WHERE datetime = '2023-12-01 15:15:00-08'")
-    # id_sql = <<-SQL
-    # SELECT id FROM energies WHERE datetime = '2023-12-01 15:15:00-08'
-    # SQL
-    # puts "#{__LINE__}. id_sql: #{id_sql}"
-    
     flag = "Not a data line" # persists if defined here. Will be Not yet until hits first local heading. Could be "", but helps a bit to have a value for debugging
     data_line = "Not data"
   
@@ -51,8 +46,13 @@ class Energy < ApplicationRecord
       # created file_to_import so could put on notice and to keep separate from file which isn't working
       # Energy_file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/SCE Reports/01 Dec 23 to 01 Jan 24.Received added to right.csv"
       # sce_file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/SCE Reports/01 Dec 23 to 01 Jan 24.original LibreOffice.csv"
-      sce_file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/SCE Reports/LibreOffice.test_short.2023.11.csv"
+      # sce_file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/SCE Reports/LibreOffice.test_short.2023.11.csv"
       sce_file_to_import = "/Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/SCE Reports/SCE Usage 8000435536 Dec 2022 to Dec 2023.withoutHeadersAndQuotes.csv"
+      
+      # From bp, but the following was in the controller where params has a meaning.
+      # file_to_import = params[:energy][:file ].tempfile.path 
+      # puts "#{__LINE__}. tempfile_path: #{tempfile_path}"
+      
       counter = 0
       row_slice_previous = "Haven't found a data row yet"
      
@@ -81,7 +81,7 @@ class Energy < ApplicationRecord
           # puts "#{__LINE__}.#{counter}. Not data line"
         end
         
-        # determine datatime and second_col if a data line.
+        # determine datetime and second_col if a data line.
         if data_line          
           # get datetime and second column which will either be from_sce or to_sce
           puts "#{__LINE__}.#{counter}. row[0] #{row[0]}" # Only getting first element of an array
@@ -128,11 +128,14 @@ class Energy < ApplicationRecord
         end
         
       end # CSV.foreach
+    puts "#{__LINE__}. tempfile_path: #{tempfile_path}"
     puts "#{__LINE__}. Date.today.prev_month(months = 2).beginning_of_month: #{Date.today.prev_month(months = 2).beginning_of_month}\n
     Date.today.last_month.beginning_of_month: #{Date.today.last_month.beginning_of_month}"
   end # def self.import_edison(file)
   
   private
+  
+  # No using this. Well didn't work at some point (it did earlier), but it's now in the data parsing
   # https://russt.me/2018/06/saving-calculated-fields-in-ruby-on-rails-5/
   def convert_kwh_to_wh
     self.from_sce = from_sce * 1000 if from_sce.present?
