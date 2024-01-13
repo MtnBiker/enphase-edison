@@ -8,7 +8,8 @@ class Energy < ApplicationRecord
   require 'csv'
    
   def self.import_enphase(file)
-    puts "#{__LINE__}. file: #{file}. No file to left means file selection not working!" # empty
+    enphase_counter = 0
+    puts "#{__LINE__}.#{enphase_counter += 1}. file: #{file}. No file to left means file selection not working!" # empty
     # file shouldn't be hard wired, file should be the first variable below
     
     # created file_to_import so could put on notice and to keep separate from file which isn't working
@@ -16,11 +17,18 @@ class Energy < ApplicationRecord
     
     # CSV.foreach(file_to_import, headers: false) do |row|
     CSV.foreach(file_to_import, headers: true, header_converters: :symbol) do |row|
-      puts "#{__LINE__}. row: #{row}" # the row, no quotes
+      puts "#{__LINE__}.#{enphase_counter += 1}. row: #{row}. row.class: #{row.class}" # the row, no quotes
       # puts "10. row.class: #{row.class}" # CSV::Row
-      puts "1#{__LINE__}. row.to_hash #{row.to_hash}" #$ {:datetime=>"2023-11-30 22:15:00 -0800", :enphase=>"0"}. Need to strip the -0800 or whatever
-      # Energy.create! row.to_hash
-      # upsert({ datetime: datetime, from_sce: second_col }, unique_by: :datetime)
+      # enphase_hash = row.to_hash
+      # puts "#{__LINE__}.#{enphase_counter += 1}. row.to_hash #{enphase_hash}" # 21. row.to_hash {:datetime=>"2023-12-31 12:45:00 -0800", :enphase=>"184"}.
+      # # datetime = enphase_hash.fetch["datetime"]
+      # enphase = row.to_hash.fetch['enphase']
+      datetime = row.to_s.match(/^[^,]+/)[0]
+      enphase = row.to_s.match(/[^,]+$/)[0]  # row.to_s.slice(52..55) have to use RegEx as placement data will vary in length
+      puts "#{__LINE__}.#{enphase_counter += 1}. datetime: #{datetime}. enphase: #{enphase}"
+       # Need to strip the -0800 or whatever ? maybe
+      
+      upsert({ datetime: datetime, enphase: enphase }, unique_by: :datetime)
     end
   end # def self.import_enphase(file)  
     
@@ -74,8 +82,7 @@ class Energy < ApplicationRecord
         end
         
         # determine datatime and second_col if a data line.
-        if data_line
-          
+        if data_line          
           # get datetime and second column which will either be from_sce or to_sce
           puts "#{__LINE__}.#{counter}. row[0] #{row[0]}" # Only getting first element of an array
           puts "#{__LINE__}.#{counter}. row[0].to_s.slice(0..18) #{row[0].to_s.slice(0..18)}" # try to get datetime, then add time zone later

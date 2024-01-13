@@ -1,26 +1,30 @@
  <!-- app/views/energies/_sce_enphase_graph.html.erb -->
  <!-- SCE received and delivered, and Enphase produced -->
  <h4>Last month
- (<%= Date.today.last_month.beginning_of_month %> to 
- <%= Date.today.beginning_of_month %>)
+     (<%= Date.today.last_month.beginning_of_month %> to 
+     <%= Date.today.beginning_of_month %>)
  </h4>
  <%= line_chart [
-  {name: "From SCE", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :from_sce)},
-  {name: "Sent to SCE", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :to_sce) },
-  {name: "Enphase Produced", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :enphase)}
-  ]%>
-  <hr class="border-bottom border-3 border-dark">
-  <h4>Two months ago. Not working</h4>
-  <%= line_chart [
-  {name: "From SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :from_sce)},
-  {name: "Sent to SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :to_sce) },
-  {name: "Enphase Produced", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :enphase)}
+    {name: "From SCE", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :from_sce)},
+    {name: "Sent to SCE", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :to_sce) },
+    {name: "Enphase Produced", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :enphase)}
   ]%>
   
   <hr class="border-bottom border-3 border-dark">
-  <h4>Showing one day instead of a month. But is interesting</h4>
+  <h4>Two months ago
+    (<%= Date.today.prev_month(months = 2).beginning_of_month%> to 
+     <%= Date.today.last_month.beginning_of_month %> )
+  </h4>
   <%= line_chart [
-  {name: "From SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :from_sce)},
-  {name: "Sent to SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :to_sce) },
-  {name: "Enphase Produced", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :enphase)}
+    {name: "From SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :from_sce)},
+    {name: "Sent to SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :to_sce) },
+    {name: "Enphase Produced", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :enphase)}
   ]%>
+  
+  <hr class="border-bottom border-3 border-dark">
+  <!-- <h4>Copy of above</h4>
+  <%= line_chart [
+    {name: "From SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :from_sce)},
+    {name: "Sent to SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :to_sce) },
+    {name: "Enphase Produced", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :enphase)}
+  ]%> -->
