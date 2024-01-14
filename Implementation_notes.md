@@ -81,6 +81,67 @@ Used (or consumed) = enphase + from_sce - to_sce. All are expressed as positive 
 Local time Produced From Sent to Used
 12 Oct 2023 8:15 am 0 30 50 -20, but enphase didn't report any production until 8:30 and it was 8 Wh (0.030, 0.050 from SCE original)
 
+From Create continuous aggregates https://docs.timescale.com/tutorials/latest/energy-data/dataset-energy/
+From tutorial
+
+CREATE MATERIALIZED VIEW kwh_day_by_day(time, value)
+with (timescaledb.continuous) as
+SELECT time_bucket('1 day', created, 'Europe/Berlin') AS "time",
+round((last(value, created) - first(value, created)) \* 100.) / 100. AS value
+FROM metrics
+WHERE type_id = 5
+GROUP BY 1;
+
+Data sample line:
+2023-05-31 23:59:59.043264+00,13,1.78 # date and two values, one of which is decimal. No header, but
+created | type_id | value
+
+created>datetime, type_id ?, value>enphase (or to_sce or from_sce,) time > time,
+-- moded for app. Since I all data is whole numbers don't need the rounding
+
+CREATE MATERIALIZED VIEW wh_day_by_day(time, enphase)
+with (timescaledb.continuous) as
+SELECT time_bucket('1 day', datetime, 'America/Los_Angeles') AS "time",
+last(enphase, datetime) - first(enphase, datetime) AS enphase
+FROM energies
+GROUP BY 1;
+--worked
+
+What is `last`? Oh, it's a calculation first and last
+
+Updating:
+SELECT add_continuous_aggregate_policy('wh_day_by_day',
+start_offset => NULL,
+end_offset => INTERVAL '1 hour',
+schedule_interval => INTERVAL '1 hour');
+
+---
+
+Let's try for all variables. Could used be added? Calulations are done. What is the timezone doing here.
+CREATE MATERIALIZED VIEW wh_day_by_day_all(time, enphase, from_sce, to_sce)
+with (timescaledb.continuous) as
+SELECT time_bucket('1 day', datetime, 'America/Los_Angeles') AS "time",
+last(enphase, datetime) - first(enphase, datetime) AS enphase,
+last(from_sce, datetime) - first(from_sce, datetime) AS from_sce,
+last(to_sce, datetime) - first(to_sce, datetime) AS to_sce
+FROM energies
+GROUP BY 1;
+-- Only from_sce is populated, the rest are null
+and
+
+SELECT add_continuous_aggregate_policy('wh_day_by_day_all',
+start_offset => NULL,
+end_offset => INTERVAL '1 hour',
+schedule_interval => INTERVAL '1 hour');
+
+Only getting data for from_sce. Do I have a column naming error? I don't think so
+
+SWAG to show table
+➜ rails generate model wh_day_by_day_all # created a table wh_day_by_day_alls with (from memory since I rolled it back) datetime enphase, from_sce, and to_see with only the from_sce having any values. I think it picked up from the materialized view since the migration only had t.timestamp. But added a line to model
+rails g controller wh_day_by_day_all index show
+
+Added lots of pieces to try to get wh_day_by_day_all table to show
+
 ## ToDo
 
 Record of data loading/importing-create table and at line at top
