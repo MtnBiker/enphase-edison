@@ -1,5 +1,7 @@
 # README
 
+Postgres timezone: America/Los_Angeles
+
 ## Importing data
 
 Data for both is in local time, but coded differently. 23 hours on day on start of DST and 25 hours on day of end of DST

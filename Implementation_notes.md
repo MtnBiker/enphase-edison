@@ -71,6 +71,9 @@ https://github.com/timescale/timescaledb Using TimescaleDB
 CREATE EXTENSION timescaledb; # success
 and already have gem "timescaledb"
 -- Then we convert it into a hypertable that is partitioned by time (may have to empty table to do this)
+
+SELECT create_hypertable('conditions', by_range('time'), migrate_data = true); -- last to use existing data, syntax ??
+SELECT create_hypertable('energies', by_range('datetime'), migrate_data = true); --
 SELECT create_hypertable('energies', 'datetime'); -- (1,public,energies,t) after Truncating table energies
 Reimported data (did Enphase first and Edison second as test of doing it in that order. Quick check it worked) BUT display order in app is weird. Not in descending order and that gaps in data. Wait for timescale though to see what's going on
 
@@ -117,7 +120,7 @@ schedule_interval => INTERVAL '1 hour');
 
 ---
 
-Let's try for all variables. Could used be added? Calulations are done. What is the timezone doing here.
+Let's try for all variables. Could used be added? Calculations are done. What is the timezone doing here.
 CREATE MATERIALIZED VIEW wh_day_by_day_all(time, enphase, from_sce, to_sce)
 with (timescaledb.continuous) as
 SELECT time_bucket('1 day', datetime, 'America/Los_Angeles') AS "time",
@@ -128,6 +131,9 @@ FROM energies
 GROUP BY 1;
 -- Only from_sce is populated, the rest are null
 and
+
+-- Then we convert it into a hypertable that is partitioned by time
+SELECT create_hypertable('conditions', 'time');
 
 SELECT add_continuous_aggregate_policy('wh_day_by_day_all',
 start_offset => NULL,
@@ -140,10 +146,58 @@ SWAG to show table
 ➜ rails generate model wh_day_by_day_all # created a table wh_day_by_day_alls with (from memory since I rolled it back) datetime enphase, from_sce, and to_see with only the from_sce having any values. I think it picked up from the materialized view since the migration only had t.timestamp. But added a line to model
 rails g controller wh_day_by_day_all index show
 
-Added lots of pieces to try to get wh_day_by_day_all table to show
+Added lots of pieces to try to get wh_day_by_day_all table to show--put in a stash
+
+Why creating a materialized view for hypertable? What's the connection? Obviously they are similar in intent.
+
+Tutorial goes into Grafana which seems to be used to track problems and performance. Do I need this? And it isn't available for pg16
+
+CREATE EXTENSION timescaledb_toolkit;
+ERROR: could not access file "MODULE_PATHNAME": No such file or directory # See below, got this working
+
+So I started over using https://stackoverflow.com/questions/73248119/how-do-you-install-timescaledb-on-mac-os-m1-apple-silicone-if-you-have-the-pos which I saved in Notes.app and at the bottom of this page.
+
+Now success:
+energy_development=# CREATE EXTENSION timescaledb_toolkit;
+CREATE EXTENSION
+
+Tried a query from tutorial and got some result. So Timescale pieces are probably working, just the data and queries need help
 
 ## ToDo
 
 Record of data loading/importing-create table and at line at top
 
 Graphs of totals per day: For selectable time periods. Jan 5 to jan 25 e.g. Some present such as last year. Last month. Last 12 months And select received Del used etc
+
+### Some Timescaledb installation notes
+
+/usr/bin/install -c -m 755 $(find /opt/homebrew/Cellar/timescaledb/2.13.1/lib/timescaledb/postgresql/ -name "timescaledb\*.so") /Applications/Postgres.app/Contents/Versions/16/lib/postgresql
+
+/usr/bin/install -c -m 644 /opt/homebrew/Cellar/timescaledb/2.7.2/share/timescaledb/\* /Applications/Postgres.app/Contents/Versions/14/share/postgresql/extension/
+
+➜ timescaledb-tune --yes --conf-path="/Users/gscar/Library/Application Support/Postgres/var-16/postgresql.conf"
+Using postgresql.conf at this path:
+/Users/gscar/Library/Application Support/Postgres/var-16/postgresql.conf
+
+Writing backup to:
+/var/folders/dy/9px5kt5d2xn8wpnx1lh9gfwc0000gn/T/timescaledb_tune.backup202401140926
+
+success: shared_preload_libraries is set correctly
+
+Recommendations based on 32.00 GB of available memory and 10 CPUs for PostgreSQL 16
+
+Memory settings recommendations
+success: memory settings are already tuned
+
+Parallelism settings recommendations
+success: parallelism settings are already tuned
+
+WAL settings recommendations
+success: WAL settings are already tuned
+
+Background writer settings recommendations
+success: background writer settings are already tuned
+
+Miscellaneous settings recommendations
+success: miscellaneous settings are already tuned
+Saving changes to: /Users/gscar/Library/Application Support/Postgres/var-16/postgresql.conf
