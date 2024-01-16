@@ -32,6 +32,8 @@ gem "jbuilder"
 # Up to Kredis is app specific installs
 gem 'timescaledb'
 
+gem 'whenever', require: false # for refreshing tables
+
 gem "pagy", "~> 6.2"
 
 gem "chartkick", "~> 5.0"

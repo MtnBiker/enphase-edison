@@ -28,7 +28,7 @@ t.timestamps
 
 rails new hadn't finished. A change to bin/dev. I created a new app to make sure I had the file right
 ➜ rdm
-➜ gem install timescaledb # this doesn't get in the app, mayb bundle install timescaledb would
+➜ gem install timescaledb # this doesn't get in the app, maybe bundle install timescaledb would
 gem 'timescaledb'
 bundle
 
@@ -161,7 +161,11 @@ Now success:
 energy_development=# CREATE EXTENSION timescaledb_toolkit;
 CREATE EXTENSION
 
-Tried a query from tutorial and got some result. So Timescale pieces are probably working, just the data and queries need help
+Tried a query from tutorial and got some result. So Timescale pieces are probably working, just the data and queries need help https://docs.timescale.com/tutorials/latest/energy-data/query-energy/#what-is-the-energy-consumption-by-the-day-of-the-week
+
+Try https://docs.timescale.com/tutorials/latest/energy-data/query-energy/#what-is-the-energy-consumption-on-a-monthly-basis to see if can sort out why not gettng the right result for per day (day of the week)
+
+SQL-queries/per_month_all.sql runs in PGAdmin but results don't make much sense, i.e., not accurate. Ah, the base data is wrong in wh_day_by_day_all. Not being updated or was created incorrectly. Maybe go back to how the views are created. data in energies looks good.
 
 ## ToDo
 
@@ -169,7 +173,7 @@ Record of data loading/importing-create table and at line at top
 
 Graphs of totals per day: For selectable time periods. Jan 5 to jan 25 e.g. Some present such as last year. Last month. Last 12 months And select received Del used etc
 
-### Some Timescaledb installation notes
+### Some Timescaledb installation notes. Add any new items above this. Meant to be more like a footnote
 
 /usr/bin/install -c -m 755 $(find /opt/homebrew/Cellar/timescaledb/2.13.1/lib/timescaledb/postgresql/ -name "timescaledb\*.so") /Applications/Postgres.app/Contents/Versions/16/lib/postgresql
 

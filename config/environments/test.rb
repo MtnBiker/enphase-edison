@@ -54,4 +54,7 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+  
+  # https://docs.timescale.com/quick-start/latest/ruby/#explore-aggregation-functions
+  config.active_record.verify_foreign_keys_for_fixtures = false
 end

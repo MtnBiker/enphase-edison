@@ -6,6 +6,8 @@ Postgres timezone: America/Los_Angeles
 
 Data for both is in local time, but coded differently. 23 hours on day on start of DST and 25 hours on day of end of DST
 
+Data for both are every 15 min. Up to 3/22/2023 SCE was hourly and column Received (to_sce) was added on 3/23. Enphase started in 10/12-13/2023, then off until 11/03/2023
+
 ### Importing Enphase data
 
 From Enphase web page, hamburger, System, Reports: mail
