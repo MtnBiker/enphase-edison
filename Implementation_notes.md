@@ -206,6 +206,8 @@ ORDER BY daily_interval;
 Energy.monthly_summary outputs in Nova/rc. Note that the output is not quite right yet. Doesn't work in iTerm
 result = Energy.monthly_summary returns an object
 
+Energy.monthly_summary.limit(10).offset(5) works in rc, but adding limit offset to monthly_summary does not, nor does used show up. At present 14 results show up in PGAdmin, so this command shows all the last ones
+
 ## ToDo
 
 https://pganalyze.com/blog/materialized-views-ruby-rails Refresh tables

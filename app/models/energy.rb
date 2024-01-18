@@ -11,14 +11,15 @@ class Energy < ApplicationRecord
  # Use with: result = Energy.monthly_summary
  def self.monthly_summary
    select(
-     "time_bucket('1 month', datetime) AS monthly_interval",
-     "SUM(enphase)/1000 AS enphase",
-     "SUM(from_sce)/1000 AS from_sce",
-     "SUM(to_sce)/1000 AS to_sce",
-     "(SUM(enphase) + SUM(from_sce) - SUM(to_sce))/1000 AS used"
+     time_bucket('1 month', datetime) AS monthly_interval,
+     SUM(enphase)/1000 AS enphase,
+     SUM(from_sce)/1000 AS from_sce,
+     SUM(to_sce)/1000 AS to_sce,
+     (SUM(enphase) + SUM(from_sce) - SUM(to_sce))/1000 AS used
    )
    .group("monthly_interval")
    .order("monthly_interval")
+   # .limit(10).offset(5) # No effect in rc
  end
 
 # https://docs.timescale.com/quick-start/latest/ruby/#create-scopes-to-reuse
