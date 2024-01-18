@@ -165,9 +165,50 @@ Tried a query from tutorial and got some result. So Timescale pieces are probabl
 
 Try https://docs.timescale.com/tutorials/latest/energy-data/query-energy/#what-is-the-energy-consumption-on-a-monthly-basis to see if can sort out why not gettng the right result for per day (day of the week)
 
-SQL-queries/per_month_all.sql runs in PGAdmin but results don't make much sense, i.e., not accurate. Ah, the base data is wrong in wh_day_by_day_all. Not being updated or was created incorrectly. Maybe go back to how the views are created. data in energies looks good.
+SQL-queries/per_month_all.sql runs in PGAdmin but results don't make much sense, i.e., not accurate. Ah, the base data is wrong in wh_day_by_day_all. Not being updated or was created incorrectly.
+
+##### Maybe go back to how the views are created. data in energies looks good.
+
+Materialized view is created, then converted to hypertable. I think. Yes
+To create a hypertable, you need to create a standard PostgreSQL table, and then convert it into a hypertable.
+
+Hypertables are intended for time-series data, so your table needs a column that holds time values.
+
+https://docs.timescale.com/quick-start/latest/ruby/#create-scopes-to-reuse
+Energy.per_day.all in rails console with model change, but doen't work
+
+## Energy.order("datetime").last # this works and doesn't rely on definitions in model, All fields shown
+
+SELECT
+time_bucket('1 day', datetime) AS daily_interval,
+SUM(enphase) AS daily_enphase,
+SUM(from_sce) AS daily_from_sce,
+SUM(to_sce) AS daily_to_sce
+FROM energies
+GROUP BY daily_interval
+ORDER BY daily_interval;
+-- creates a table, only looking at hypertable, nothing to with Materialized View
+Isn't this what the materialized view is trying to be. But the above takes 37ms, so don't worry about materialized views, only need the hypertable.
+
+How get this result on a page?
+
+SELECT
+time_bucket('1 day', datetime) AS daily_interval,
+SUM(enphase)/1000 AS daily_enphase,
+SUM(from_sce)/1000 AS daily_from_sce,
+SUM(to_sce)/1000 AS daily_to_sce,
+(SUM(enphase) + SUM(from_sce) - SUM(to_sce))/1000 AS daily_used
+FROM energies
+GROUP BY daily_interval
+ORDER BY daily_interval;
+-- doesn't work until there is a daily_enphase value
+
+Energy.monthly_summary outputs in Nova/rc. Note that the output is not quite right yet. Doesn't work in iTerm
+result = Energy.monthly_summary returns an object
 
 ## ToDo
+
+https://pganalyze.com/blog/materialized-views-ruby-rails Refresh tables
 
 Record of data loading/importing-create table and at line at top
 
@@ -205,3 +246,5 @@ success: background writer settings are already tuned
 Miscellaneous settings recommendations
 success: miscellaneous settings are already tuned
 Saving changes to: /Users/gscar/Library/Application Support/Postgres/var-16/postgresql.conf
+
+#### Put additions above ## ToDo

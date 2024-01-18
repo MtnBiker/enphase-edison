@@ -1,7 +1,44 @@
 class Energy < ApplicationRecord
   self.primary_key = "datetime"
-  acts_as_hypertable # copied from an example
-  
+  acts_as_hypertable time_column: :datetime # default is created_at https://github.com/jonatas/timescaledb?tab=readme-ov-file#enable-actsashypertable
+
+# https://docs.timescale.com/quick-start/latest/ruby/create-scopes-to-reuse
+ scope :last_month, -> { where('datetime > ?', 1.month.ago) }
+ scope :last_year, -> { where('datetime > ?', 1.year.ago) }
+ # in rails console: Energy.last_month.all for example
+ 
+ # ChatGPT
+ # Use with: result = Energy.monthly_summary
+ def self.monthly_summary
+   select(
+     "time_bucket('1 month', datetime) AS monthly_interval",
+     "SUM(enphase)/1000 AS enphase",
+     "SUM(from_sce)/1000 AS from_sce",
+     "SUM(to_sce)/1000 AS to_sce",
+     "(SUM(enphase) + SUM(from_sce) - SUM(to_sce))/1000 AS used"
+   )
+   .group("monthly_interval")
+   .order("monthly_interval")
+ end
+
+# https://docs.timescale.com/quick-start/latest/ruby/#create-scopes-to-reuse
+# This may not be close enough to what I'm doing to use as an example
+  # scope :per_hour, -> { time_bucket('1 hour') }
+  # scope :per_day, -> { time_bucket('1 day') }
+  # scope :per_month, -> { time_bucket('1 month') }
+  # scope :average_response_time_per_hour, -> { time_bucket('1 hour', value: 'avg(performance)') }
+  # scope :worst_response_time_last_minute, -> { time_bucket('1 minute', value: 'max(performance)') }
+  # scope :worst_response_time_last_hour, -> { time_bucket('1 hour', value: 'max(performance)') }
+  # scope :best_response_time_last_hour, -> { time_bucket('1 hour', value: 'min(performance)') }
+  # scope :paths, -> { distinct.pluck(:path) }
+  # scope :time_bucket, -> (time_dimension, value: 'count(1)') {
+  #   select(<<~SQL)
+  #     time_bucket('#{time_dimension}', created_at) as time, path,
+  #     #{value} as value
+  #   SQL
+  #    .group('time, path').order('path, time')
+  #   }
+
   # before_save :convert_kwh_to_wh # defined below, but not being used so have this line commented out
   
   # https://www.mattmorgante.com/technology/csv
