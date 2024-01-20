@@ -12,6 +12,7 @@ Bundler version 2.5.4
 psql (PostgreSQL) 16.1
 
 config/application.rb config.time_zone = "Pacific Time (US & Canada)"
+SQL timezone is
 
 Changed db from solar_enphase_edison to energy
 ➜ bin/rails db:create
@@ -123,7 +124,7 @@ schedule_interval => INTERVAL '1 hour');
 Let's try for all variables. Could used be added? Calculations are done. What is the timezone doing here.
 CREATE MATERIALIZED VIEW wh_day_by_day_all(time, enphase, from_sce, to_sce)
 with (timescaledb.continuous) as
-SELECT time_bucket('1 day', datetime, 'America/Los_Angeles') AS "time",
+SELECT time_bucket('1 day', datetime, 'America/Los_Angeles') AS "datetime",
 last(enphase, datetime) - first(enphase, datetime) AS enphase,
 last(from_sce, datetime) - first(from_sce, datetime) AS from_sce,
 last(to_sce, datetime) - first(to_sce, datetime) AS to_sce

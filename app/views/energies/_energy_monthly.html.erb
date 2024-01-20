@@ -8,22 +8,16 @@
   <% enphase = energy.enphase %>
   <% from_sce = energy.from_sce %>
   <% to_sce = energy.to_sce %>
-  <!-- Trying for reuse of this page. Errors with present? TODO. Come back to this if get _monthly.html.erb working -->
-  <!-- <%# if energy.used.present? %> 
-    <%#= used = energy.used %>
-  <%# else %> -->
-    <% used = enphase + from_sce - to_sce %>
-  <!-- <%# end %> -->
-  
+  <!-- Trying for reuse of this page. Errors with present? -->
+  <%= used = energy.used %>
+   
   <td class="text-center"><%= number_to_human(energy.enphase) %></td>  <!--  could change number_with_precision(energy.wh,  precision: 0) but if don't exceed 1kWh won't be needed -->
   <td class="text-end"><%= number_with_precision(energy.from_sce,{ precision: 0, delimiter: "," }) %></td> 
   <!-- Needs a comma -->
   <td class="text-end"><%= number_with_precision(energy.to_sce, precision: 0) %></td>
   <!-- Used, i.e., consumed -->
   <td class="text-end"><%= number_with_precision(used, precision: 0) %></td>
-
-  
-  <!-- Edit and destroy need an id and we don't have one with timescaledb -->
-  <td><%#= link_to 'Edit', edit_energy_path(energy), data: { turbo_frame: "_top" }, class:"text-warning mx-1" %></td>
-  <td><%#= link_to 'Destroy', energy_path(energy), data: {turbo_method: "delete"}, 'data-turbo-confirm': 'Are you sure you want to delete the connection?', class:"text-danger mx-1" %></td>
 </tr>
+
+
+monthly_summary is nil
