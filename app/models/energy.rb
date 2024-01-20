@@ -1,6 +1,8 @@
 class Energy < ApplicationRecord
+  self.table_name = 'day_by_day' # Using a view in Rails. ChatGPT
   self.primary_key = "datetime"
-  acts_as_hypertable time_column: :datetime # default is created_at https://github.com/jonatas/timescaledb?tab=readme-ov-file#enable-actsashypertable
+  
+  # acts_as_hypertable time_column: :datetime # default is created_at https://github.com/jonatas/timescaledb?tab=readme-ov-file#enable-actsashypertable
 
 # https://docs.timescale.com/quick-start/latest/ruby/create-scopes-to-reuse
  scope :last_month, -> { where('datetime > ?', 1.month.ago) }

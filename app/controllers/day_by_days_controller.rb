@@ -1,4 +1,6 @@
 class DayByDaysController < ApplicationController
+  @view_day_by_day = DayByDay.all
+  
   def index
     # @day_by_days = day_by_day.all
      if params[:query].present?

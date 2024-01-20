@@ -209,6 +209,9 @@ result = Energy.monthly_summary returns an object
 
 Energy.monthly_summary.limit(10).offset(5) works in rc, but adding limit offset to monthly_summary does not, nor does used show up. At present 14 results show up in PGAdmin, so this command shows all the last ones
 
+Materialized Views are mainly for performance and may help with joins. Neither of these apply to this app. Try to do without Materialized Views and Aggregates (unless performance suffers which for my amount of data shouldn't be an issue) Only think is how to do the time_bucket in
+NO: Trying to use data in View>day_by_day which has all four fields and is OOPS datetime is wrong.
+
 ## ToDo
 
 https://pganalyze.com/blog/materialized-views-ruby-rails Refresh tables

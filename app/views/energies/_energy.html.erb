@@ -12,7 +12,9 @@
   <!-- <%# if energy.used.present? %> 
     <%#= used = energy.used %>
   <%# else %> -->
-    <% used = enphase + from_sce - to_sce %>
+    <%# used = enphase + from_sce - to_sce %>
+    <!-- hiding an error FIXME -->
+    <% used = 0 %>
   <!-- <%# end %> -->
   
   <td class="text-center"><%= number_to_human(energy.enphase) %></td>  <!--  could change number_with_precision(energy.wh,  precision: 0) but if don't exceed 1kWh won't be needed -->

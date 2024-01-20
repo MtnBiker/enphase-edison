@@ -1,2 +1,2 @@
-module WhDayByDayHelper
+module DayByDayHelper
 end

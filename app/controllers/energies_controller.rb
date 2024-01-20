@@ -1,6 +1,8 @@
 class EnergiesController < ApplicationController
   before_action :set_energy, only: %i[ show edit update destroy ]
   
+  @view_day_by_day = DayByDay.all
+  
   def import_enphase
     Energy.import_enphase(params[:file_to_import])
     redirect_to root_url, notice: "Enphase data imported." # #{file_to_import} not available
