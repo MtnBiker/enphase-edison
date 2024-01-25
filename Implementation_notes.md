@@ -180,37 +180,12 @@ Energy.per_day.all in rails console with model change, but doen't work
 
 ## Energy.order("datetime").last # this works and doesn't rely on definitions in model, All fields shown
 
-SELECT
-time_bucket('1 day', datetime) AS daily_interval,
-SUM(enphase) AS daily_enphase,
-SUM(from_sce) AS daily_from_sce,
-SUM(to_sce) AS daily_to_sce
-FROM energies
-GROUP BY daily_interval
-ORDER BY daily_interval;
--- creates a table, only looking at hypertable, nothing to with Materialized View
-Isn't this what the materialized view is trying to be. But the above takes 37ms, so don't worry about materialized views, only need the hypertable.
-
-How get this result on a page?
-
-SELECT
-time_bucket('1 day', datetime) AS daily_interval,
-SUM(enphase)/1000 AS daily_enphase,
-SUM(from_sce)/1000 AS daily_from_sce,
-SUM(to_sce)/1000 AS daily_to_sce,
-(SUM(enphase) + SUM(from_sce) - SUM(to_sce))/1000 AS daily_used
-FROM energies
-GROUP BY daily_interval
-ORDER BY daily_interval;
--- doesn't work until there is a daily_enphase value
-
 Energy.monthly_summary outputs in Nova/rc. Note that the output is not quite right yet. Doesn't work in iTerm
 result = Energy.monthly_summary returns an object
 
 Energy.monthly_summary.limit(10).offset(5) works in rc, but adding limit offset to monthly_summary does not, nor does used show up. At present 14 results show up in PGAdmin, so this command shows all the last ones
 
-Materialized Views are mainly for performance and may help with joins. Neither of these apply to this app. Try to do without Materialized Views and Aggregates (unless performance suffers which for my amount of data shouldn't be an issue) Only think is how to do the time_bucket in
-NO: Trying to use data in View>day_by_day which has all four fields and is OOPS datetime is wrong.
+Finally got a migration to create day_by_day and it resulted in a Materialized View rather than a View. ChatGPT and persistence to the rescue
 
 ## ToDo
 

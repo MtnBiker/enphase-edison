@@ -2,6 +2,8 @@
 
 Postgres timezone: America/Los_Angeles
 
+Time and Date are middle of the period, e.g., per day is reported as noon.
+
 ## Importing data
 
 Data for both is in local time, but coded differently. 23 hours on day on start of DST and 25 hours on day of end of DST
