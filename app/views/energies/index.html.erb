@@ -1,44 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Energy Generation and Use</h1>
-<p class="fst-italic">* Enphase and Edison don't always agree. Some times when Enphase reports no production, Edison reports both sending and receiving energy. This can result in a negative being reported for usage which isn't possible without a battery. Something to be resolved.</p>
-<!-- <p>Trim the seconds</p> -->
-<table class="index-table">
-  <thead class="table-thead"> <!-- Table head is not showing-->
-    <tr>
-      <th colspan="1" class="text-center h-25"></th>
-      <th colspan="4" class="text-center h-25">Energy (Wh)</th>
-    </tr>
-    <tr>
-      <th colspan="1" class="text-center h-25"></th>
-      <th class="text-center h-25">Enphase</th>
-      <th colspan="2" class="text-center h-25">Edison</th>
-      <th class="text-center h-25"></th>
-    </tr>
-    <tr>
-      <!-- <th id="datetime" class="text-center py-3 px-6">(as stored)</th> -->
-      <th id="dateinzone" class="text-center py-3 px-6">Local time</th>
-      <th id="enphase" class="text-end col-1 py-3 px-6">Produced</th>
-      <th id="from_sce" class="text-end col-1 py-3 px-6">From</th>
-      <th id="to_sce" class="text-end col-1 py-3 px-6">Sent to</th>
-      <th id="used" class="text-end col-1 py-3 px-6">Used</th>
-      <th colspan="2"  class="text-center"></th>
-    </tr>
-  </thead>
+<p>Tabular data <%= link_to "Hour by Hour", hourly_url %> <%= link_to "Day by Day", daily_url %> <%= link_to "Month by Month", monthly_url %></p>
 
-  <tbody class="">
-    <% @energies.each do |energy| %>
-      <%#= render energy %>
-      <%= render "energy_pagy", energy: @energy %>
-    <% end %>
-  </tbody>
-</table>
-
-<div class="pag-bar mt-5 pt-5">
-  <%== pagy_bootstrap_nav(@pagy) %>
-</div>
 
 <!-- Graphs/Charts -->
+
+<%= render "daily_graph" %>
 <%= render "graph_demos" %>
 
 <!-- Import -->
@@ -58,5 +26,3 @@
     <%= submit_tag( "Import Edison csv" ) %>
   <% end %>
 </div>
-
-<%#= link_to "New energy", new_energy_path %>

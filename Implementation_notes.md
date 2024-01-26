@@ -88,30 +88,7 @@ Local time Produced From Sent to Used
 From Create continuous aggregates https://docs.timescale.com/tutorials/latest/energy-data/dataset-energy/
 From tutorial
 
-CREATE MATERIALIZED VIEW kwh_day_by_day(time, value)
-with (timescaledb.continuous) as
-SELECT time_bucket('1 day', created, 'Europe/Berlin') AS "time",
-round((last(value, created) - first(value, created)) \* 100.) / 100. AS value
-FROM metrics
-WHERE type_id = 5
-GROUP BY 1;
-
-Data sample line:
-2023-05-31 23:59:59.043264+00,13,1.78 # date and two values, one of which is decimal. No header, but
-created | type_id | value
-
-created>datetime, type_id ?, value>enphase (or to_sce or from_sce,) time > time,
--- moded for app. Since I all data is whole numbers don't need the rounding
-
-CREATE MATERIALIZED VIEW wh_day_by_day(time, enphase)
-with (timescaledb.continuous) as
-SELECT time_bucket('1 day', datetime, 'America/Los_Angeles') AS "time",
-last(enphase, datetime) - first(enphase, datetime) AS enphase
-FROM energies
-GROUP BY 1;
---worked
-
-What is `last`? Oh, it's a calculation first and last
+Materialized Views. Usually used for speeding up pages, but for me it's about having easily identifiable tables
 
 Updating:
 SELECT add_continuous_aggregate_policy('wh_day_by_day',
@@ -194,6 +171,10 @@ gem "scenic" seems like may solve some problems for me. https://github.com/sceni
 Got the three views sorted out. Requires a model for each, but much can be reused. Also the energy_controller knows about each one
 
 ## ToDo
+
+Add auto updating
+
+Overlay hours for different days
 
 https://pganalyze.com/blog/materialized-views-ruby-rails Refresh tables
 
