@@ -1,5 +1,5 @@
 class MonthByMonth< ApplicationRecord
-  self.table_name = 'month_by_month' # Using a view in Rails. ChatGPT
+  self.table_name = 'month_by_months' # Using a view in Rails. ChatGPT
   self.primary_key = "datetime"
   
   belongs_to :energy
@@ -9,7 +9,7 @@ class MonthByMonth< ApplicationRecord
   end
   
  def self.refresh
-   Scenic.database.refresh_materialized_view(month_by_month, concurrently: false, cascade: false)
+   Scenic.database.refresh_materialized_view(month_by_months, concurrently: false, cascade: false)
  end
 end
 

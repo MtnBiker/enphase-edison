@@ -1,5 +1,5 @@
 class HourByHour< ApplicationRecord
-  self.table_name = 'hour_by_hour' # Using a view in Rails. ChatGPT
+  self.table_name = 'hour_by_hours' # Using a view in Rails. ChatGPT
   self.primary_key = "datetime"
   
   belongs_to :energy
@@ -9,7 +9,7 @@ class HourByHour< ApplicationRecord
   end
   
  def self.refresh
-   Scenic.database.refresh_materialized_view(hour_by_hour, concurrently: false, cascade: false)
+   Scenic.database.refresh_materialized_view(hour_by_hours, concurrently: false, cascade: false)
  end
 end
 

@@ -191,11 +191,9 @@ Setting up model for each mat view: https://medium.com/@rebo_dood/the-benefits-o
 
 gem "scenic" seems like may solve some problems for me. https://github.com/scenic-views/scenic and https://raghu-bhupatiraju.dev/implementing-materialized-views-in-rails-ffea22bd5d9c
 
-Not understanding routing. It's now in the controller. Can't get /daily to work e.g.
+Got the three views sorted out. Requires a model for each, but much can be reused. Also the energy_controller knows about each one
 
 ## ToDo
-
-day_by_day method is using day_by_day_sort materialized view, maybe should get this all to be day_by_day
 
 https://pganalyze.com/blog/materialized-views-ruby-rails Refresh tables
 

@@ -1,31 +1,12 @@
 <tr>
   <!-- <td class="text-left"><%#= energy.datetime %>&nbsp;&nbsp;</td> -->
-  <td class="text-center">X<%= energy.datetime.localtime.strftime("%d %b %Y %_l:%M %P") %></td>
-   <!-- <td class="text-center"><%#= energy.datetime.localtime.to_fs(:rfc822) %></td>  -->
+  <td class="text-center"><%= energy.datetime.localtime.strftime("%d %b %Y") %></td>
+   <!-- <td class="text-center"><%= energy.datetime.localtime.to_fs(:rfc822) %></td>  -->
   <!-- Thu, 30 Nov 2023 16:00:00 -0800	result of above -->
   
-  <!-- The following so far only for calculating used and not in shown data (getting data twice but making sure don't screw it up-->
-  <% enphase = energy.enphase %>
-  <% from_sce = energy.from_sce %>
-  <% to_sce = energy.to_sce %>
-  <!-- Trying for reuse of this page. Errors with present? TODO. Come back to this if get _monthly.html.erb working -->
-  <!-- <%# if energy.used.present? %> 
-    <%#= used = energy.used %>
-  <%# else %> -->
-    <%# used = enphase + from_sce - to_sce %>
-    <!-- hiding an error FIXME -->
-    <%# used = 0 %>
-  <!-- <%# end %> -->
-  
-  <td class="text-center"><%= number_with_precision(energy.enphase,{ precision: 0, delimiter: "," }) %></td>  <!--  could change number_with_precision(energy.wh,  precision: 0) but if don't exceed 1kWh won't be needed -->
+  <td class="text-end"><%= number_with_precision(energy.enphase,{ precision: 0, delimiter: "," }) %></td>    
   <td class="text-end"><%= number_with_precision(energy.from_sce,{ precision: 0, delimiter: "," }) %></td> 
-  <!-- Needs a comma -->
-  <td class="text-end"><%= number_with_precision(energy.to_sce, precision: 0) %></td>
+  <td class="text-end"><%= number_with_precision(energy.to_sce, precision: 0, delimiter: "," ) %></td>
   <!-- Used, i.e., consumed -->
-  <td class="text-end"><%= number_with_precision(used, precision: 0) %></td>
-
-  
-  <!-- Edit and destroy need an id and we don't have one with timescaledb -->
-  <td><%#= link_to 'Edit', edit_energy_path(energy), data: { turbo_frame: "_top" }, class:"text-warning mx-1" %></td>
-  <td><%#= link_to 'Destroy', energy_path(energy), data: {turbo_method: "delete"}, 'data-turbo-confirm': 'Are you sure you want to delete the connection?', class:"text-danger mx-1" %></td>
+  <td class="text-end"><%= number_with_precision(energy.used, precision: 0, delimiter: "," ) %></td>
 </tr>

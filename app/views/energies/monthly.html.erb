@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Daily Energy Generation and Use</h1>
+<h1>Monthly Energy Generation and Use</h1>
 <p class="fst-italic">* Enphase and Edison don't always agree. Some times when Enphase reports no production, Edison reports both sending and receiving energy. This can result in a negative being reported for usage which isn't possible without a battery. Something to be resolved.</p>
 <!-- <p>Trim the seconds</p> -->
 <table class="index-table">
@@ -9,7 +9,7 @@
   <tbody>    
     <!-- view_day_by_day defined in energies_controller with reference to model day_by_day.rb-->
 
-    <% @day_by_days.each do |energy| %>
+    <% @month_by_months.each do |energy| %>
       <%= render partial: 'energy', locals: { energy: energy } %>
     <% end %>
   </tbody>
