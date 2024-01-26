@@ -25,7 +25,29 @@ class EnergiesController < ApplicationController
        @pagy, @energies = pagy((Energy.all))
      end
   end
+  
+  def daily
+    @day_by_days = DayByDay.all # DayByDay is using day_by_day from day_by_day.rb model
+    render :daily # overriding routes. But why can't I use routes
+    # @energies = Energy.all
+     if params[:query].present?
+       @pagy, @energies = pagy((DayByDay.search_energies(params[:query])))
+     else
+       @pagy, @energies = pagy((DayByDay.all))
+     end
+  end
 
+ def monthly
+    @month_by_months = MonthByMonth.all # DayByDay is using day_by_day from day_by_day.rb model
+    render :monthly # overriding routes. But why can't I use routes
+    # @energies = Energy.all
+     if params[:query].present?
+       @pagy, @energies = pagy((MonthByMonth.search_energies(params[:query])))
+     else
+       @pagy, @energies = pagy((MonthByMonth.all))
+     end
+  end
+  
   # GET /energies/1 or /energies/1.json
   def show
   end

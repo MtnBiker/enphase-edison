@@ -24,3 +24,11 @@ connection.execute(<<EOSQL)
     END;
   $function$ LANGUAGE plpgsql;
 EOSQL
+
+# Trigger the refresh function whenever the table changes
+connection.execute(<<EOSQL)
+  CREATE TRIGGER trigger_refresh_month_by_month_on_state_change
+      AFTER UPDATE OF state OR DELETE OR TRUNCATE
+      ON month_by_month FOR EACH STATEMENT
+      EXECUTE PROCEDURE refresh_month_by_month();
+EOSQL

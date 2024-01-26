@@ -15,14 +15,4 @@ class DayByDate2 < ActiveRecord::Migration[7.1]
 end
 
 # Repeating as the original one wasn't sorted (ORDER)
-
-The following was done in PGAdmin
-connection.execute(<<EOSQL)
-  CREATE FUNCTION refresh_day_by_day()
-  RETURNS trigger AS $function$
-    BEGIN
-      REFRESH MATERIALIZED VIEW day_by_day;
-      RETURN NULL;
-    END;
-  $function$ LANGUAGE plpgsql;
-EOSQL
+# Went with scenic

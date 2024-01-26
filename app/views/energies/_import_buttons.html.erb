@@ -1,0 +1,18 @@
+<!-- app/views/_import_buttons.html.erb -->
+<!-- Import -->
+<div class="container border border-secondary border-3 rounded-3 p-2">
+  <%= form_with model: @energies, url: { action: "import_enphase" } do |form| %>
+    <%= form.label :file, "Import Enphase report—path must be hardwired in model.", class: "fs-3" %> 
+    <%= form.file_field :file %>
+    <%= submit_tag( "Import Enphase csv" ) %>
+  <% end %>
+</div>
+
+<div class="container border border-secondary border-3 rounded-3 p-2">
+  <!-- url is not intuitive to me. -->
+  <%= form_with model: @energies, url: { action: "import_edison" } do |form| %>
+    <%= form.label :file, "Import Edison Periodic Report – path must be hardwired in model", class: "fs-3" %> 
+    <%= form.file_field :file %>
+    <%= submit_tag( "Import Edison csv" ) %>
+  <% end %>
+</div>

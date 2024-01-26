@@ -1,6 +1,14 @@
 class Energy < ApplicationRecord
-  self.table_name = 'day_by_day' # Using a view in Rails. ChatGPT
-  self.primary_key = "datetime"
+  # self.table_name = 'day_by_day' # Using a view in Rails. ChatGPT
+  # self.primary_key = "datetime"
+  
+  after_commit :refresh_energy
+  
+  def refresh_energy
+    MonthByMonth.refresh
+    DayByDay.refresh
+    HourByHour.refresh
+  end
   
   # acts_as_hypertable time_column: :datetime # default is created_at https://github.com/jonatas/timescaledb?tab=readme-ov-file#enable-actsashypertable
 

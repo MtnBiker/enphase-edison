@@ -4,33 +4,12 @@
 <p class="fst-italic">* Enphase and Edison don't always agree. Some times when Enphase reports no production, Edison reports both sending and receiving energy. This can result in a negative being reported for usage which isn't possible without a battery. Something to be resolved.</p>
 <!-- <p>Trim the seconds</p> -->
 <table class="index-table">
-  <thead class="table-thead"> <!-- Table head is not showing-->
-    <tr>
-      <th colspan="1" class="text-center h-25"></th>
-      <th colspan="4" class="text-center h-25">Energy (Wh)</th>
-    </tr>
-    <tr>
-      <th colspan="1" class="text-center h-25"></th>
-      <th class="text-center h-25">Enphase</th>
-      <th colspan="2" class="text-center h-25">Edison</th>
-      <th class="text-center h-25"></th>
-    </tr>
-    <tr>
-      <!-- <th id="datetime" class="text-center py-3 px-6">(as stored)</th> -->
-      <th id="dateinzone" class="text-center py-3 px-6">Local time</th>
-      <th id="enphase" class="text-end col-1 py-3 px-6">Produced</th>
-      <th id="from_sce" class="text-end col-1 py-3 px-6">From</th>
-      <th id="to_sce" class="text-end col-1 py-3 px-6">Sent to</th>
-      <th id="used" class="text-end col-1 py-3 px-6">Used</th>
-      <th colspan="2"  class="text-center"></th>
-    </tr>
-  </thead>
+  <%= render 'table_head' %>
 
   <tbody>    
     <!-- view_day_by_day defined in energies_controller with reference to model day_by_day.rb-->
 
-    <% @view_day_by_days.each do |energy| %>
-      <%#= render energy_monthly %>
+    <% @day_by_days.each do |energy| %>
       <%= render partial: 'energy_daily', locals: { energy: energy } %>
     <% end %>
   </tbody>
@@ -43,22 +22,4 @@
 <!-- Graphs/Charts -->
 <%= render "graph_demos" %>
 
-<!-- Import -->
-<div class="container border border-secondary border-3 rounded-3 p-2">
-  <%= form_with model: @energies, url: { action: "import_enphase" } do |form| %>
-    <%= form.label :file, "Import Enphase report—path must be hardwired in model.", class: "fs-3" %> 
-    <%= form.file_field :file %>
-    <%= submit_tag( "Import Enphase csv" ) %>
-  <% end %>
-</div>
-
-<div class="container border border-secondary border-3 rounded-3 p-2">
-  <!-- url is not intuitive to me. -->
-  <%= form_with model: @energies, url: { action: "import_edison" } do |form| %>
-    <%= form.label :file, "Import Edison Periodic Report – path must be hardwired in model", class: "fs-3" %> 
-    <%= form.file_field :file %>
-    <%= submit_tag( "Import Edison csv" ) %>
-  <% end %>
-</div>
-
-<%#= link_to "New energy", new_energy_path %>
+<%= render 'import_buttons' %>
