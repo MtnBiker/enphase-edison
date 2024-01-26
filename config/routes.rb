@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   
   get "monthly", to: 'energies#monthly'
   
+  get "daily", to: 'energies#daily'
+  
   # Defines the root path route ("/")
   root "energies#index"
 end

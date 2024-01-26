@@ -1,0 +1,14 @@
+<!-- app/views/energies/_energy_daily.html.erb -->
+<!-- Being used for daily -->
+<tr>
+  <!-- <td class="text-left"><%#= energy.datetime %>&nbsp;&nbsp;</td> -->
+  <td class="text-center"><%= energy.datetime.localtime.strftime("%d %b %Y") %></td>
+   <!-- <td class="text-center"><%= energy.datetime.localtime.to_fs(:rfc822) %></td>  -->
+  <!-- Thu, 30 Nov 2023 16:00:00 -0800	result of above -->
+  
+  <td class="text-end"><%= number_with_precision(energy.enphase,{ precision: 0, delimiter: "," }) %></td>    
+  <td class="text-end"><%= number_with_precision(energy.from_sce,{ precision: 0, delimiter: "," }) %></td> 
+  <td class="text-end"><%= number_with_precision(energy.to_sce, precision: 0, delimiter: "," ) %></td>
+  <!-- Used, i.e., consumed -->
+  <td class="text-end"><%= number_with_precision(energy.used, precision: 0, delimiter: "," ) %></td>
+</tr>

@@ -187,7 +187,15 @@ Energy.monthly_summary.limit(10).offset(5) works in rc, but adding limit offset 
 
 Finally got a migration to create day_by_day and it resulted in a Materialized View rather than a View. ChatGPT and persistence to the rescue
 
+Setting up model for each mat view: https://medium.com/@rebo_dood/the-benefits-of-materialized-views-and-how-to-use-them-in-your-ruby-on-rails-project-4ac1b5432881
+
+gem "scenic" seems like may solve some problems for me. https://github.com/scenic-views/scenic and https://raghu-bhupatiraju.dev/implementing-materialized-views-in-rails-ffea22bd5d9c
+
+Not understanding routing. It's now in the controller. Can't get /daily to work e.g.
+
 ## ToDo
+
+day_by_day method is using day_by_day_sort materialized view, maybe should get this all to be day_by_day
 
 https://pganalyze.com/blog/materialized-views-ruby-rails Refresh tables
 

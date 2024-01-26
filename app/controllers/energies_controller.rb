@@ -1,7 +1,8 @@
 class EnergiesController < ApplicationController
   before_action :set_energy, only: %i[ show edit update destroy ]
   
-  @view_day_by_day = DayByDay.all
+  # @view_day_by_days = DayByDay.all
+  # puts "energies_controller:#{__LINE__}. @view_day_by_day: #{@view_day_by_day.inspect}" # Looks right, but    <% @view_day_by_day.each do |energy| %> comes up with nil at energies/monthly.html.erb. So is it not looking here
   
   def import_enphase
     Energy.import_enphase(params[:file_to_import])
@@ -15,6 +16,8 @@ class EnergiesController < ApplicationController
 
   # GET /energies or /energies.json
   def index
+    @view_day_by_days = DayByDay.all # DayByDay is using day_by_day from day_by_day.rb model
+    render :daily # overriding routes. But why can't I use routes
     # @energies = Energy.all
      if params[:query].present?
        @pagy, @energies = pagy((Energy.search_energies(params[:query])))

@@ -5,9 +5,9 @@
      <%= Date.today.beginning_of_month %>)
  </h4>
  <%= line_chart [
-    {name: "From SCE", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :from_sce)},
-    {name: "Sent to SCE", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :to_sce) },
-    {name: "Enphase Produced", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :enphase)}
+   {name: "Enphase Produced", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :enphase)},
+   {name: "Sent to SCE", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :to_sce)},
+   {name: "From SCE", data: Energy.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :from_sce)}
   ]%>
   
   <hr class="border-bottom border-3 border-dark">
@@ -16,10 +16,10 @@
      <%= Date.today.last_month.beginning_of_month %> )
   </h4>
   <%= line_chart [
-    {name: "From SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :from_sce)},
-    {name: "Sent to SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :to_sce) },
-    {name: "Enphase Produced", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :enphase)}
-  ]%>
+    {name: "Enphase Produced", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :enphase)},
+    {name: "Sent to SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :to_sce)},
+    {name: "From SCE", data: Energy.where(datetime: Date.today.prev_month(months = 2).beginning_of_month..Date.today.last_month.beginning_of_month).pluck(:datetime, :from_sce)}
+    ]%>
   
   <!-- <hr class="border-bottom border-3 border-dark">
   <h4>December 31, 2023

@@ -28,8 +28,10 @@
 
   <tbody>    
     <!-- view_day_by_day defined in energies_controller with reference to model day_by_day.rb-->
-    <% @view_day_by_day&.each do |energy| %>
-      <%= render energy_monthly %>
+
+    <% @view_day_by_days.each do |energy| %>
+      <%#= render energy_monthly %>
+      <%= render partial: 'energy_daily', locals: { energy: energy } %>
     <% end %>
   </tbody>
 </table>
