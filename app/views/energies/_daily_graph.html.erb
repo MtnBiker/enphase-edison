@@ -1,1 +1,17 @@
-<h1>hi</H1>
+<!-- app/views/energies/_daily_graph.erb.html -->
+<!-- <h2 class="text-center">Daily</h2> -->
+<!-- <h6 class="text-center">Dates are as of latest data loaded. Need to put this date in the titles TODO</h6> -->
+<!-- <h3 class="text-center">As of <%#= enphase.last.date-hour.to_fs(:rfc822) %></h3> -->
+<hr class="border-bottom border-3 border-dark">
+
+<!-- Received and Delivered and Produced -->
+<div class="text-center font-weight-bold">
+  <h4>Last Month</h4>
+   <%= line_chart [
+     {name: "Enphase Produced", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :enphase)},
+     {name: "Sent to SCE", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :to_sce)},
+     {name: "From SCE", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :from_sce)},
+      {name: "Used", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :used)}
+    ]%>    
+</div>
+<hr class="border-bottom border-3 border-dark">
