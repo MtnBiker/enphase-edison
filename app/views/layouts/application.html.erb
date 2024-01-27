@@ -10,7 +10,23 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
- <body class="mx-5">
+ <body class="mx-5 text-center">  
+   <h1 class="">Energy Generation and Use</h1>
+   <ul class="nav nav-pills  nav-fill">
+     <li class="nav-item">
+       <a class="nav-link active" aria-current="page" href="/hourly">Hourly</a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" aria-current="page"  href="/daily">Daily</a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link"  aria-current="page"  href="/monthly">Monthly</a>
+     </li>
+     <!-- <li class="nav-item">
+       <a class="nav-link disabled">TBD</a>
+     </li> -->
+   </ul>
+   
     <%= yield %>
   </body>
 </html>
