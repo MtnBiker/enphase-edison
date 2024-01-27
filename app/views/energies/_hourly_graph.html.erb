@@ -3,11 +3,13 @@
 
 <div class="text-center font-weight-bold">
   <h4>Hour by Hour</h4>
+  
+  <% time_span = Date.today.last_month.beginning_of_month..Date.today.last_month.beginning_of_month + 24.hour %>
    <%= line_chart [
-     {name: "Enphase Produced", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :enphase)},
-     {name: "Sent to SCE", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :to_sce)},
-     {name: "From SCE", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :from_sce)},
-      {name: "Used", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :used)}
+     {name: "Enphase Produced", data: HourByHour.where(datetime: time_span).pluck(:datetime, :enphase)},
+     {name: "Sent to SCE", data: HourByHour.where(datetime: time_span).pluck(:datetime, :to_sce)},
+     {name: "From SCE", data: HourByHour.where(datetime: time_span).pluck(:datetime, :from_sce)},
+     {name: "Used", data: HourByHour.where(datetime: time_span).pluck(:datetime, :used)}
     ]%>    
 </div>
 

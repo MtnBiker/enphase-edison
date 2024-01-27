@@ -170,6 +170,9 @@ gem "scenic" seems like may solve some problems for me. https://github.com/sceni
 
 Got the three views sorted out. Requires a model for each, but much can be reused. Also the energy_controller knows about each one
 
+Hourly for a day working. Had to give up (at least for now) on \_energy.html.erb for all three as datetime format needs to be different.
+Tab not highlighting.
+
 ## ToDo
 
 Add auto updating
