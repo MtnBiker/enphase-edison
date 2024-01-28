@@ -4,26 +4,18 @@
 <!-- <h1>Hourly Energy Generation and Use</h1>
 <p class="fst-italic">* Enphase and Edison don't always agree. Some times when Enphase reports no production, Edison reports both sending and receiving energy. This can result in a negative being reported for usage which isn't possible without a battery. Something to be resolved.</p> -->
 <p><%#= link_to "Energy Day by Day", daily_url %> <%#= link_to "Energy Month by Month", monthly_url %></p> 
-<!-- Until can get date picker working -->
-<%# theDate = Date.today.last_month.beginning_of_month + 29.days %>
-#
-<%#= render "hourly_graph", theDate: theDate  %>
+<!-- This may be just so something is displayed when this page is first displayed-->
+<% theDate = Date.today.last_month.beginning_of_month %>
 
-<h4>Pick the day [TBD]</h4>
-<!-- <%#= simple_form_for @hour_by_hour do |f| %>
-  <%#= f.label :the_date %>
-  <%#= f.date_field :the_date, class: 'datepicker' %>
+<%= render "hourly_graph", theDate: theDate  %>
 
-  # Add other form fields as needed
+<h5>Pick a new date to display</h4>
 
-  <%#= f.submit 'Display Graph' %>
-<%# end %> -->
-
-<!-- This approach does select a date, but hourly_graphs is partial and that isn't going to work out -->
+<!-- This approach does select a date, but _hourly_graphs is partial and I want the graph to display with the new date -->
 <%= form_tag process_date_path, method: :post do %>
   <%= label_tag :the_date, 'Pick a Date' %>
   <%= date_field_tag :the_date, @selected_date %>
-  <%= submit_tag 'Submit' %>
+  <%= submit_tag 'Display graph for selected date' %>
 <% end %>
 
 <hr class="border-bottom border-3 border-dark">
@@ -33,7 +25,7 @@
   <%= render 'table_head' %>
   <tbody>    
     <!-- view_day_by_day defined in energies_controller with reference to model day_by_day.rb-->
-<!-- Change this to only do table for the_date , the_date: the_date TODO -->
+    <!-- Change this to only do table for the_date , the_date: the_date TODO -->
     <% @hour_by_hours.each do |energy| %>
       <%= render partial: 'hourly', locals: { energy: energy } %>
     <% end %>

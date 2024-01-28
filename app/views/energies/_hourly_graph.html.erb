@@ -2,7 +2,10 @@
 <hr class="border-bottom border-3 border-dark">
 
 <div class="text-center font-weight-bold">
+  <!-- Testing this way of displaying, avoids one error -->
+  <%= "Got theDate" if defined?(theDate) && theDate %>
   <h4>Hour by Hour for <%= theDate.strftime("%d %b %Y") %></h4>
+
   <!-- For some reason just picking a date, it is 8 hours short, probably a time zone issue, but adding 0 hours fixes it UGLY -->
  <% theDate = theDate + 0.hour %>
 <!-- Could pass in a variable for number of days or do that in hourly -->
