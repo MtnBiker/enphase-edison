@@ -5,9 +5,9 @@
 <p class="fst-italic">* Enphase and Edison don't always agree. Some times when Enphase reports no production, Edison reports both sending and receiving energy. This can result in a negative being reported for usage which isn't possible without a battery. Something to be resolved.</p> -->
 <p><%#= link_to "Energy Day by Day", daily_url %> <%#= link_to "Energy Month by Month", monthly_url %></p> 
 <!-- Until can get date picker working -->
-<% theDate = Date.today.last_month.beginning_of_month + 4.days %>
-
-<%= render "hourly_graph", theDate: theDate  %>
+<%# theDate = Date.today.last_month.beginning_of_month + 29.days %>
+#
+<%#= render "hourly_graph", theDate: theDate  %>
 
 <h4>Pick the day [TBD]</h4>
 <!-- <%#= simple_form_for @hour_by_hour do |f| %>
@@ -18,6 +18,13 @@
 
   <%#= f.submit 'Display Graph' %>
 <%# end %> -->
+
+<!-- This approach does select a date, but hourly_graphs is partial and that isn't going to work out -->
+<%= form_tag process_date_path, method: :post do %>
+  <%= label_tag :the_date, 'Pick a Date' %>
+  <%= date_field_tag :the_date, @selected_date %>
+  <%= submit_tag 'Submit' %>
+<% end %>
 
 <hr class="border-bottom border-3 border-dark">
 

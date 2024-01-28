@@ -3,6 +3,10 @@ Rails.application.routes.draw do
     collection { post :import_enphase }
     collection { post :import_edison }
   end
+  
+  # For picking date for hourly graph
+  get 'theDate', to: 'energies#theDate'
+  post 'process_date', to: 'energies#process_date'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Needed for simple_form_for to select date
   resources :hour_by_hours, only: [:index, :show]

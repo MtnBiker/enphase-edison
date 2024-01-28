@@ -182,16 +182,9 @@ https://github.com/heartcombo/simple_form?tab=readme-ov-file#installation if go 
 
 gem "simple_form"
 ➜ rails generate simple_form:install --bootstrap
+Not sure I'm still using simple_form
 
-## Sample which I can't figure out yet
-
-<%= simple_form_for @user do |f| %>
-<%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
-end_year: Date.today.year - 12, discard_day: true,
-order: [:month, :year] %>
-<%= f.input :accepts, as: :boolean, checked_value: 'positive', unchecked_value: 'negative' %>
-<%= f.button :submit %>
-<% end %>
+If the approach I'm taking is right it makes sense to put the graph in a stimulus controller
 
 ## ToDo
 

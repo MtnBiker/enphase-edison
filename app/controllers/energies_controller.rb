@@ -1,6 +1,17 @@
 class EnergiesController < ApplicationController
   # before_action :set_energy, only: %i[ show edit update destroy ]
-   
+  
+  def pick_date
+    @selected_date = Date.current
+  end
+  
+  def process_date
+    @the_date = params[:the_date]
+    @the_date = Date.strptime(@the_date, '%Y-%m-%d') # being fed a string and need a date class
+    # Process the selected_date as needed
+    puts "energies_controller:#{__LINE__}. @the_date: #{@the_date}. @the_date.class: #{@the_date}.class"
+    render :_hourly_graph, locals: { theDate: @the_date }
+  end
   # GET /energies or /energies.json
   # Nothing here since have hourly, daily, monthly
   def index
@@ -58,6 +69,6 @@ class EnergiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def energy_params
-      params.require(:energy).permit(:datetime, :enphase, :from_sce, :to_sce)
+      params.require(:energy).permit(:datetime, :enphase, :from_sce, :to_sce, :the_date)
     end
 end
