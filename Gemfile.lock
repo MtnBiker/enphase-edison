@@ -260,6 +260,9 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    simple_form (5.3.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     solargraph (0.50.0)
       backport (~> 1.2)
       benchmark
@@ -335,6 +338,7 @@ DEPENDENCIES
   rails (~> 7.1.2)
   scenic
   selenium-webdriver
+  simple_form
   solargraph
   stimulus-rails
   timescaledb

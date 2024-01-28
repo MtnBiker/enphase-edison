@@ -2,18 +2,31 @@
 <p style="color: green"><%= notice %></p>
 
 <!-- <h1>Hourly Energy Generation and Use</h1>
-<p class="fst-italic">* Enphase and Edison don't always agree. Some times when Enphase reports no production, Edison reports both sending and receiving energy. This can result in a negative being reported for usage which isn't possible without a battery. Something to be resolved.</p>
-<p><%= link_to "Energy Day by Day", daily_url %> <%= link_to "Energy Month by Month", monthly_url %></p> -->
-<!-- <p>Trim the seconds</p> -->
+<p class="fst-italic">* Enphase and Edison don't always agree. Some times when Enphase reports no production, Edison reports both sending and receiving energy. This can result in a negative being reported for usage which isn't possible without a battery. Something to be resolved.</p> -->
+<p><%#= link_to "Energy Day by Day", daily_url %> <%#= link_to "Energy Month by Month", monthly_url %></p> 
+<!-- Until can get date picker working -->
+<% theDate = Date.today.last_month.beginning_of_month + 4.days %>
 
-<%= render "hourly_graph" %>
+<%= render "hourly_graph", theDate: theDate  %>
+
+<h4>Pick the day [TBD]</h4>
+<!-- <%#= simple_form_for @hour_by_hour do |f| %>
+  <%#= f.label :the_date %>
+  <%#= f.date_field :the_date, class: 'datepicker' %>
+
+  # Add other form fields as needed
+
+  <%#= f.submit 'Display Graph' %>
+<%# end %> -->
+
+<hr class="border-bottom border-3 border-dark">
 
 <table class="index-table">
   <!-- Table head is common to hourly, daily, monthly -->
   <%= render 'table_head' %>
   <tbody>    
     <!-- view_day_by_day defined in energies_controller with reference to model day_by_day.rb-->
-
+<!-- Change this to only do table for the_date , the_date: the_date TODO -->
     <% @hour_by_hours.each do |energy| %>
       <%= render partial: 'hourly', locals: { energy: energy } %>
     <% end %>

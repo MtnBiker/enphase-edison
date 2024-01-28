@@ -173,6 +173,26 @@ Got the three views sorted out. Requires a model for each, but much can be reuse
 Hourly for a day working. Had to give up (at least for now) on \_energy.html.erb for all three as datetime format needs to be different.
 Tab not highlighting.
 
+#### Datepicker
+
+Bootstrap installed via --css bootstrap. Guess that's all the needed (many online tutorials etc make it harder)
+app/javascript/application.js `import * as bootstrap from "bootstrap";`
+ChatGPT You can use a separate datepicker library like flatpickr or datepicker. flatpickr assume JavaScript installation of old. simple_form instructions seem more up to date.
+https://github.com/heartcombo/simple_form?tab=readme-ov-file#installation if go with simple_form
+
+gem "simple_form"
+➜ rails generate simple_form:install --bootstrap
+
+## Sample which I can't figure out yet
+
+<%= simple_form_for @user do |f| %>
+<%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
+end_year: Date.today.year - 12, discard_day: true,
+order: [:month, :year] %>
+<%= f.input :accepts, as: :boolean, checked_value: 'positive', unchecked_value: 'negative' %>
+<%= f.button :submit %>
+<% end %>
+
 ## ToDo
 
 Add auto updating

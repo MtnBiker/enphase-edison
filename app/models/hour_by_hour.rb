@@ -2,6 +2,9 @@ class HourByHour< ApplicationRecord
   self.table_name = 'hour_by_hours' # Using a view in Rails. ChatGPT
   self.primary_key = "datetime"
   
+  # Trying for selecting a start date for graphs, didn't help
+  # validates :theDate, presence: true
+  
   belongs_to :energy
   
   def readonly?

@@ -1,9 +1,8 @@
 <!-- app/views/_hourly.html.erb -->
 
 <tr>
-   <td class="text-center"><%= energy.datetime.localtime.strftime("%d %b %Y %_l:%M %P") %></td>
-   <!-- <td class="text-center"><%= energy.datetime.localtime.to_fs(:rfc822) %></td> -->
-   <td class="text-end"><%= number_with_precision(energy.enphase,{ precision: 0, delimiter: "," }) %></td>    
+  <td class="text-center"><%= energy.datetime.localtime.strftime("%d %b %Y %_l:%M %P") %></td>
+  <td class="text-end"><%= number_with_precision(energy.enphase,{ precision: 0, delimiter: "," }) %></td>    
   <td class="text-end"><%= number_with_precision(energy.from_sce,{ precision: 0, delimiter: "," }) %></td> 
   <td class="text-end"><%= number_with_precision(energy.to_sce, precision: 0, delimiter: "," ) %></td>
   <!-- Used, i.e., consumed -->
