@@ -2,8 +2,8 @@
 <!-- Import -->
 <div class="container border border-secondary border-3 rounded-3 p-2">
   <%= form_with model: @energies, url: { action: "import_enphase" } do |form| %>
-    <%= form.label :file, "Import Enphase report—path must be hardwired in model.", class: "fs-3" %> 
-    <%= form.file_field :file %>
+    <%= form.label :file_to_import, "Import Enphase report", class: "fs-3" %> 
+    <%= form.file_field :file_to_import %>
     <%= submit_tag( "Import Enphase csv" ) %>
   <% end %>
 </div>
@@ -11,8 +11,16 @@
 <div class="container border border-secondary border-3 rounded-3 p-2">
   <!-- url is not intuitive to me. -->
   <%= form_with model: @energies, url: { action: "import_edison" } do |form| %>
-    <%= form.label :file, "Import Edison Periodic Report – path must be hardwired in model", class: "fs-3" %> 
-    <%= form.file_field :file %>
+    <%= form.label :file_to_import, "Import Edison Periodic Report", class: "fs-3" %> 
+    <%= form.file_field :file_to_import %>
     <%= submit_tag( "Import Edison csv" ) %>
   <% end %>
 </div>
+
+<!-- Selecting date, is this a model for above
+process_date_path: energies#process_date, a method in energies controller
+<%#= form_tag process_date_path, method: :post, remote: true do %>
+  <%#= label_tag :the_date, 'Select a New Date to Display' %>
+  <%#= date_field_tag :the_date, @the_date ||= Date.current - 30.days %>
+  <%#= submit_tag 'Update graph for selected date' %>
+<%# end %> -->

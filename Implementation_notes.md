@@ -201,6 +201,8 @@ Record of data loading/importing-create table and at line at top
 
 Graphs of totals per day: For selectable time periods. Jan 5 to jan 25 e.g. Some present such as last year. Last month. Last 12 months And select received Del used etc
 
+Table sorting (now ascending by datetime). Pagy
+
 ### Some Timescaledb installation notes. Add any new items above this. Meant to be more like a footnote
 
 /usr/bin/install -c -m 755 $(find /opt/homebrew/Cellar/timescaledb/2.13.1/lib/timescaledb/postgresql/ -name "timescaledb\*.so") /Applications/Postgres.app/Contents/Versions/16/lib/postgresql

@@ -56,7 +56,8 @@ class Energy < ApplicationRecord
   # https://www.mattmorgante.com/technology/csv
   # and https://gorails.com/episodes/intro-to-importing-from-csv ~2015
   require 'csv'
-   
+  
+  # Moved to energies_controller.rb. Can delete
   def self.import_enphase(file)
     enphase_counter = 0
     puts "#{__LINE__}.#{enphase_counter += 1}. file: #{file}. No file to left means file selection not working!" # empty
@@ -85,7 +86,8 @@ class Energy < ApplicationRecord
       upsert({ datetime: datetime, enphase: enphase }, unique_by: :datetime)
     end
   end # def self.import_enphase(file)  
-    
+  
+  # Moved to energies_controller.rb. Can delete
   def self.import_edison(file)
     flag = "Not a data line" # persists if defined here. Will be Not yet until hits first local heading. Could be "", but helps a bit to have a value for debugging
     data_line = "Not data"

@@ -72,13 +72,60 @@ class EnergiesController < ApplicationController
      end
   end
   
+  # All logic here, none in model
   def import_enphase
-    Energy.import_enphase(params[:file_to_import])
+    file_to_import = (params[:file_to_import])
+    enphase_counter = 0
+    puts "#{__LINE__}.#{enphase_counter += 1}. file_to_import: #{file_to_import}. No file to left means file selection not working!"
+    CSV.foreach(file_to_import, headers: true, header_converters: :symbol) do |row|
+      datetime = row.to_s.match(/^[^,]+/)[0]
+      enphase = row.to_s.match(/[^,]+$/)[0]
+      Energy.upsert({ datetime: datetime, enphase: enphase }, unique_by: :datetime)
+    end
     redirect_to root_url, notice: "Enphase data imported." # #{file_to_import} not available
   end
   
   def import_edison
-    Energy.import_edison(params[:file_to_import])
+    file_to_import = (params[:file_to_import])
+    flag = "Not a data line" # persists if defined here. Will be Not yet until hits first local heading. Could be "", but helps a bit to have a value for debugging
+    data_line = "Not data"
+    
+    counter = 0
+    row_slice_previous = "Haven't found a data row yet"
+   
+    CSV.foreach(file_to_import, headers: false) do |row|
+      flag = "Delivered" if row[0].match(/Delivered/)
+      flag = "Received" if row.flatten.to_s.match(/Received/) # If Received in header won't import with this logic
+      
+      if row.flatten.to_s.match(/\"202/)  # Unique to data lines. Good through decade. Works for original export, but not Numbers modified and exported because of double quotes being stripped
+        data_line = "Data"
+      else
+        data_line = "Not data"
+      end
+      
+      # determine datetime and second_col if a data line.
+      if data_line          
+        # get datetime and second column which will either be from_sce or to_sce
+        # Getting first 19 characters and making it a time, which is detecting time zone.
+        datetime = row[0].to_s.slice(0..18).to_time
+        second_col = row[1]
+        # This seems unnecessarily complex but it works and isn't done often
+        if second_col.nil?
+          puts "#{__LINE__}.#{counter}. second_col.nil?"
+        else
+          second_col = second_col.gsub(/[^\d.]/, '').to_f
+          second_col = second_col*1000
+        end
+      end
+        
+      if data_line == "Data" && flag == "Delivered"
+        puts "#{__LINE__}.#{counter}. Delivered.  datetime: #{datetime}. from_sce: #{second_col}"
+        Energy.upsert({ datetime: datetime, from_sce: second_col }, unique_by: :datetime)  
+      elsif data_line == "Data" && flag == "Received"
+        datetime = row[0].to_s.slice(0..18).to_time
+        Energy.upsert({ datetime: datetime, to_sce: second_col }, unique_by: :datetime)
+      end      
+    end # CSV.foreach
     redirect_to root_url, notice: "Edison data imported." # #{file_to_import} not available
   end
   
