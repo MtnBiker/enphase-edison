@@ -13,7 +13,7 @@ class EnergiesController < ApplicationController
   def process_date
     @the_date_str = params[:the_date]
     @the_date = Date.parse(@the_date_str)
-    puts "energies_controller.rb:#{__LINE__}. @the_date: #{@the_date}. @the_date.class: #{@the_date}.class"
+    # puts "#@#@# @energies_controller.rb:#{__LINE__}. @the_date: #{@the_date}. @the_date.class: #{@the_date}.class"
   
     # Process the selected_date as needed
   

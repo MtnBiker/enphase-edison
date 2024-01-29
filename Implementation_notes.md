@@ -184,13 +184,16 @@ gem "simple_form"
 ➜ rails generate simple_form:install --bootstrap
 Not sure I'm still using simple_form
 
-If the approach I'm taking is right it makes sense to put the graph in a stimulus controller
+If the approach I'm taking is right it makes sense to put the graph in a turbo
+ChatGPT came up with a turbo solution. Doesn't seem like it's following the standard way, but it works.
 
 ## ToDo
 
 Add auto updating
 
 Overlay hours for different days
+
+Arrow day by day next to select a day
 
 https://pganalyze.com/blog/materialized-views-ruby-rails Refresh tables
 

@@ -5,19 +5,20 @@
 <p class="fst-italic">* Enphase and Edison don't always agree. Some times when Enphase reports no production, Edison reports both sending and receiving energy. This can result in a negative being reported for usage which isn't possible without a battery. Something to be resolved.</p> -->
 <p><%#= link_to "Energy Day by Day", daily_url %> <%#= link_to "Energy Month by Month", monthly_url %></p> 
 <!-- This may be just so something is displayed when this page is first displayed-->
-<% theDate = Date.today.last_month.beginning_of_month %>
+<%# theDate = Date.today.last_month.beginning_of_month %>
 
 <!-- Stimulus part 1
 <div data-controller="hourly-graph">
   <%#= render "hourly_graph", theDate: theDate  %>
 </div> -->
 
-<h5>Pick a new date to display</h4>
+<!-- <h5>Pick a new date to display</h4> -->
 
 <!-- Turbo -->
 <%= form_tag process_date_path, method: :post, remote: true do %>
-  <%= label_tag :the_date, 'Pick a Date' %>
-  <%= date_field_tag :the_date, @selected_date %>
+  <%= label_tag :the_date, 'Select a New Date to Display' %>
+  <%= date_field_tag :the_date, @the_date ||= Date.current - 30.days %>
+  <!-- <input type="date" name="the_date" id="the_date"> With no default-->
   <%= submit_tag 'Update graph for selected date' %>
 <% end %>
 
