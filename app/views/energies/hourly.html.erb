@@ -7,16 +7,35 @@
 <!-- This may be just so something is displayed when this page is first displayed-->
 <% theDate = Date.today.last_month.beginning_of_month %>
 
-<%= render "hourly_graph", theDate: theDate  %>
+<!-- Stimulus part 1
+<div data-controller="hourly-graph">
+  <%#= render "hourly_graph", theDate: theDate  %>
+</div> -->
 
 <h5>Pick a new date to display</h4>
 
-<!-- This approach does select a date, but _hourly_graphs is partial and I want the graph to display with the new date -->
-<%= form_tag process_date_path, method: :post do %>
+<!-- Turbo -->
+<%= form_tag process_date_path, method: :post, remote: true do %>
   <%= label_tag :the_date, 'Pick a Date' %>
   <%= date_field_tag :the_date, @selected_date %>
-  <%= submit_tag 'Display graph for selected date' %>
+  <%= submit_tag 'Update graph for selected date' %>
 <% end %>
+
+<%= render 'energies/hourly_graph' %>
+<!-- End turbo but may need to move this last line up -->
+
+<!-- <%##= form_tag process_date_path, method: :post, data: { controller: "hourly-graph" } do %>
+  <%##= label_tag :the_date, 'Pick a Date' %>
+  <%##= date_field_tag :the_date, @selected_date, data: { target: "hourly-graph.dateInput" } %>
+  <%##= submit_tag 'Update graph for selected date', data: { action: "hourly-graph#updateGraph" } %>
+<%## end %> -->
+
+<!-- This was for a false start with Stimulus part 2
+<%#= form_tag process_date_path, method: :post, data: { controller: "hourly-graph" } do %>
+  <%#= label_tag :the_date, 'Pick a Date' %>
+  <%#= date_field_tag :the_date, @selected_date, data: { target: "hourly-graph.dateInput" } %>
+  <%#= submit_tag 'Update graph for selected date', data: { action: "click->hourly-graph#updateGraph" } %>
+<%# end %> -->
 
 <hr class="border-bottom border-3 border-dark">
 

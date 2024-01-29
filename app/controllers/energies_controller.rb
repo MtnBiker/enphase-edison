@@ -1,17 +1,39 @@
 class EnergiesController < ApplicationController
   # before_action :set_energy, only: %i[ show edit update destroy ]
   
-  def pick_date
-    @selected_date = Date.current
-  end
+  # Unneeded from ChatGPT
+  # def pick_date
+  #   # @selected_date = Date.current
+  #   # # Set an initial value for @the_date
+  #   # @the_date = Date.parse('2024-01-01')
+  #   # # Set a default value for @the_date if it's not already defined
+  #   # @the_date ||= Date.current
+  # end
   
   def process_date
-    @the_date = params[:the_date]
-    @the_date = Date.strptime(@the_date, '%Y-%m-%d') # being fed a string and need a date class
+    @the_date_str = params[:the_date]
+    @the_date = Date.parse(@the_date_str)
+    puts "energies_controller.rb:#{__LINE__}. @the_date: #{@the_date}. @the_date.class: #{@the_date}.class"
+  
     # Process the selected_date as needed
-    puts "energies_controller:#{__LINE__}. @the_date: #{@the_date}. @the_date.class: #{@the_date}.class"
-    render :_hourly_graph, locals: { theDate: @the_date }
+  
+    # Assuming you have a method to get the data for the graph
+    # Doesn't the graph know whee to get the data
+    # @graph_data = fetch_graph_data(@the_date)
+  
+    # Render a Turbo Stream to update the graph element
+    render turbo_stream: turbo_stream.replace('graph', partial: 'energies/hourly_graph', locals: { the_date: @the_date })
   end
+  
+  # This was for Stimulus which wasn't the way to do what I needed 
+  # def process_date
+  #   @the_date = params[:the_date]
+  #   @the_date = Date.strptime(@the_date, '%Y-%m-%d') # being fed a string and need a date class
+  #   # Process the selected_date as needed
+  #   puts "energies_controller:#{__LINE__}. @the_date: #{@the_date}. @the_date.class: #{@the_date}.class"
+  #   render :_hourly_graph, locals: { theDate: @the_date }
+  # end
+
   # GET /energies or /energies.json
   # Nothing here since have hourly, daily, monthly
   def index
@@ -62,6 +84,11 @@ class EnergiesController < ApplicationController
   
 
   private
+
+    def fetch_graph_data(selected_date)
+      # Your logic to fetch graph data based on the selected date
+      # Return the data in a format that your graphing library understands
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_energy
       @energy = Energy.find(params[:id])

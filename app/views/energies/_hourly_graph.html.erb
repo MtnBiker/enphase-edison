@@ -1,22 +1,32 @@
 <!-- app/views/energies/_hourly_graph.erb.html -->
-<hr class="border-bottom border-3 border-dark">
+<div id="graph">
+  <hr class="border-bottom border-3 border-dark">
 
-<div class="text-center font-weight-bold">
-  <!-- Testing this way of displaying, avoids one error -->
-  <%= "Got theDate" if defined?(theDate) && theDate %>
-  <h4>Hour by Hour for <%= theDate.strftime("%d %b %Y") %></h4>
+    <!-- Display the graph using the @the_date variable if it's defined -->
+    <% if defined? the_date %>
+      <!-- <p>Selected Date: <%= the_date %></p> -->
+    <% else %>
+      <!-- <p>No date selected yet</p> -->
+      <% the_date = Date.current - 30.days %>
+    <% end %>
 
-  <!-- For some reason just picking a date, it is 8 hours short, probably a time zone issue, but adding 0 hours fixes it UGLY -->
- <% theDate = theDate + 0.hour %>
-<!-- Could pass in a variable for number of days or do that in hourly -->
-  <% time_span = theDate..theDate + 24.hour %>
+  <div class="text-center font-weight-bold">
+    <!-- Testing this way of displaying, avoids one error -->
+    <%#= "Got the_date" if defined?(the_date) && the_date %>
+    <h4>Hour by Hour for <%= the_date.strftime("%d %b %Y") %></h4>
   
-  <%= line_chart [
-  {name: "Enphase Produced", data: HourByHour.where(datetime: time_span).pluck(:datetime, :enphase)},
-  {name: "Sent to SCE", data: HourByHour.where(datetime: time_span).pluck(:datetime, :to_sce)},
-  {name: "From SCE", data: HourByHour.where(datetime: time_span).pluck(:datetime, :from_sce)},
-  {name: "Used", data: HourByHour.where(datetime: time_span).pluck(:datetime, :used)}
-  ]%>    
+    <!-- For some reason just picking a date, it is 8 hours short, probably a time zone issue, but adding 0 hours fixes it UGLY -->
+   <% the_date = the_date + 0.hour %>
+  <!-- Could pass in a variable for number of days or do that in hourly -->
+    <% time_span = the_date..the_date + 24.hour %>
+    
+    <%= line_chart [
+    {name: "Enphase Produced", data: HourByHour.where(datetime: time_span).pluck(:datetime, :enphase)},
+    {name: "Sent to SCE", data: HourByHour.where(datetime: time_span).pluck(:datetime, :to_sce)},
+    {name: "From SCE", data: HourByHour.where(datetime: time_span).pluck(:datetime, :from_sce)},
+    {name: "Used", data: HourByHour.where(datetime: time_span).pluck(:datetime, :used)}
+    ]%>    
+  </div>
+  
+  <hr class="border-bottom border-3 border-dark">
 </div>
-
-<hr class="border-bottom border-3 border-dark">
