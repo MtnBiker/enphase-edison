@@ -2,11 +2,17 @@ Rails.application.routes.draw do
   resources :energies do
     collection { post :import_enphase }
     collection { post :import_edison }
+    # collection { post :process_date } # process_date_path isn't created
+    # collection { post :increment_date }
+    collection { post :decrement_date }
   end
   
   # For picking date for hourly graph
   get 'theDate', to: 'energies#theDate'
   post 'process_date', to: 'energies#process_date'
+  post 'increment_date', to: 'energies#increment_date'
+  post 'change_daily_graph', to: 'energies#change_daily_graph'
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Needed for simple_form_for to select date
   resources :hour_by_hours, only: [:index, :show]

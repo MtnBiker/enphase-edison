@@ -187,6 +187,10 @@ Not sure I'm still using simple_form
 If the approach I'm taking is right it makes sense to put the graph in a turbo
 ChatGPT came up with a turbo solution. Doesn't seem like it's following the standard way, but it works.
 
+#### Turbo Streams. Try on daily (hourly used ChatGPT with what seemed an odd implemention)
+
+Turbo Streams introduces a <turbo-stream> element with seven basic actions: append, prepend, replace, update, remove, before, and after.
+
 ## ToDo
 
 Add auto updating

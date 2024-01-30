@@ -17,6 +17,11 @@ class Energy < ApplicationRecord
  scope :last_year, -> { where('datetime > ?', 1.year.ago) }
  # in rails console: Energy.last_month.all for example
  
+ def self.change_daily_graph
+   # render partial: "enerties/daily_graph", locals: {the_date: @the_date}
+   # Maybe need to send to controller
+ end
+ 
  # ChatGPT
  # Use with: result = Energy.monthly_summary
  # Double quotes needed for some pages, e.g. index.html.erb with if

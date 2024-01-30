@@ -13,16 +13,20 @@ class EnergiesController < ApplicationController
   def process_date
     @the_date_str = params[:the_date]
     @the_date = Date.parse(@the_date_str)
-    # puts "#@#@# @energies_controller.rb:#{__LINE__}. @the_date: #{@the_date}. @the_date.class: #{@the_date}.class"
-  
-    # Process the selected_date as needed
-  
-    # Assuming you have a method to get the data for the graph
-    # Doesn't the graph know whee to get the data
-    # @graph_data = fetch_graph_data(@the_date)
-  
-    # Render a Turbo Stream to update the graph element
     render turbo_stream: turbo_stream.replace('graph', partial: 'energies/hourly_graph', locals: { the_date: @the_date })
+  end
+  
+  def increment_date
+    puts "energy_controller.rb.#{__LINE__}. More to come" 
+    # Is :the_date available? If so:
+    @the_date_str = params[:the_date]
+    puts "energy_controller.rb.#{__LINE__}. @the_date_str: #{@the_date_str}" 
+
+    @the_date = Date.parse(@the_date_str) + 1.day
+    render turbo_stream: turbo_stream.replace('graph', partial: 'energies/hourly_graph', locals: { the_date: @the_date })
+  end
+  
+  def decrement_date
   end
   
   # This was for Stimulus which wasn't the way to do what I needed 
@@ -60,6 +64,21 @@ class EnergiesController < ApplicationController
        @pagy, @energies = pagy((DayByDay.all))
      end
   end
+  
+  
+  def change_daily_graph
+    @the_date = params[:the_date]
+    # Other processing logic here
+  
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js   # This will render change_daily_graph.js.erb by default
+    end
+  end
+  
+  # def change_daily_graph
+  #   render partial: "enerties/daily_graph", locals: {the_date: @the_date}
+  # end
 
  def monthly
     @month_by_months = MonthByMonth.all # DayByDay is using day_by_day from day_by_day.rb model
@@ -132,13 +151,9 @@ class EnergiesController < ApplicationController
 
   private
 
-    def fetch_graph_data(selected_date)
-      # Your logic to fetch graph data based on the selected date
-      # Return the data in a format that your graphing library understands
-    end
     # Use callbacks to share common setup or constraints between actions.
     def set_energy
-      @energy = Energy.find(params[:id])
+      @energy = Energy.find(params[:datetime])
     end
 
     # Only allow a list of trusted parameters through.

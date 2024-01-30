@@ -5,7 +5,17 @@
 
 <!-- <p class="text-center">Energy&nbsp;&nbsp;<%= link_to "Hour by Hour", hourly_url %>&nbsp;&nbsp;<%= link_to "Month by Month", monthly_url %></p> -->
 
-<%= render "daily_graph" %>
+<%= form_tag change_daily_graph_path, method: :post, remote: true, 'data-turbo-frame': 'the_frame' do %>
+  <%= label_tag :the_date, 'Select a New Date to Display. NOT WORKING' %>
+  <%= date_field_tag :the_date, @the_date ||= Date.current - 30.days %>
+  <%= submit_tag 'Update graph for selected date' %>
+<% end %>
+
+<turbo-frame id="the_frame">
+  <%= render "daily_graph", the_date: @the_date %>
+</turbo-frame>
+
+<%#= render "daily_graph" %>
 
 <!-- <p>Trim the seconds</p> -->
 <table class="index-table">

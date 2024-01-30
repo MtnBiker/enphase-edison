@@ -7,11 +7,16 @@
 <!-- This may be just so something is displayed when this page is first displayed-->
 <%# theDate = Date.today.last_month.beginning_of_month %>
 
-<!-- Turbo -->
+<!-- Select date to change display. Turbo logic in controller. Nice to move more of it here -->
+<!-- Submits to energies_controller, method process_date -->
 <%= form_tag process_date_path, method: :post, remote: true do %>
   <%= label_tag :the_date, 'Select a New Date to Display' %>
   <%= date_field_tag :the_date, @the_date ||= Date.current - 30.days %>
   <%= submit_tag 'Update graph for selected date' %>
+<% end %>
+
+<%= form_tag increment_date_path, method: :post, remote: true do %>
+  <%= button_to "Increment date. NG TBD" %>
 <% end %>
 
 <%= render 'energies/hourly_graph' %>
