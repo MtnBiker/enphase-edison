@@ -9,6 +9,7 @@
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",
     "chartkick": "^5.0.1",
+    "daisyui": "^4.6.1",
     "esbuild": "^0.19.11",
     "nodemon": "^3.0.2",
     "postcss": "^8.4.33",

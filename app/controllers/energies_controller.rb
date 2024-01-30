@@ -65,7 +65,7 @@ class EnergiesController < ApplicationController
      end
   end
   
-  
+  # Not working. Again ChatGPT.
   def change_daily_graph
     @the_date = params[:the_date]
     # Other processing logic here

@@ -12,9 +12,43 @@
 
  <body class="mx-5 text-center">  
    <h1 class="">Energy Generation and Use</h1>
+   
+   <!-- Nav tabs -->
+   <ul class="nav nav-tabs" id="myTab" role="tablist">
+     <li class="nav-item" role="presentation">
+       <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="/hourly" type="button" role="tab" aria-controls="home" aria-selected="true">Hourly</button>
+     </li>
+     <li class="nav-item" role="presentation">
+       <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="/daily" type="button" role="tab" aria-controls="profile" aria-selected="false">Daily</button>
+     </li>
+     <li class="nav-item" role="presentation">
+       <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="/Monthly" type="button" role="tab" aria-controls="messages" aria-selected="false">Monthly</button>
+     </li>
+     <li class="nav-item" role="presentation">
+       <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+     </li>
+   </ul>
+   
+   
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="/hourly" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Hourly</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="/daily" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Daily</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="/monthly" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Monthly</button>
+    </li>
+  </ul>
+
+   
+
+   <p>Above should change highlighting which it does, but nav not happening. Below works but no change in highlight</p>
+   <!-- Bootstrap, but doesn't show active tab -->
    <ul class="nav nav-pills  nav-fill">
      <li class="nav-item">
-       <a class="nav-link active" aria-current="page" href="/hourly">Hourly</a>
+       <a class="nav-link" aria-current="page" href="/hourly">Hourly</a>
      </li>
      <li class="nav-item">
        <a class="nav-link" aria-current="page"  href="/daily">Daily</a>
@@ -26,6 +60,15 @@
        <a class="nav-link disabled">TBD</a>
      </li> -->
    </ul>
+   
+<!-- Tailwind DaisyUI -->
+  <!-- <div class="text-sm breadcrumbs">
+    <ul>
+      <li><a class="nav-link" aria-current="page" href="/hourly">Hourly</a></li> 
+      <li><a class="nav-link" aria-current="page"  href="/daily">Daily</a></li> 
+      <li><a class="nav-link"  aria-current="page"  href="/monthly">Monthly</a></li>
+    </ul>
+  </div> -->
    
     <%= yield %>
   </body>
