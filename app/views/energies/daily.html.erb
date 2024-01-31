@@ -12,7 +12,7 @@
 <% end %>
 
 <turbo-frame id="the_frame">
-  <%= render "daily_graph", the_date: @the_date %>
+  <%= render "energies/graphs/daily_graph", the_date: @the_date %>
 </turbo-frame>
 
 <%#= render "daily_graph" %>
@@ -32,6 +32,6 @@
 </div>
 
 <!-- Graphs/Charts -->
-<%= render "graph_demos" %>
+<%= render "energies/graphs/graph_demos" %>
 
 <%= render 'import_buttons' %>

@@ -13,7 +13,7 @@ class EnergiesController < ApplicationController
   def process_date
     @the_date_str = params[:the_date]
     @the_date = Date.parse(@the_date_str)
-    render turbo_stream: turbo_stream.replace('graph', partial: 'energies/hourly_graph', locals: { the_date: @the_date })
+    render turbo_stream: turbo_stream.replace('graph', partial: 'energies/graphs/hourly_graph', locals: { the_date: @the_date })
   end
   
   def increment_date
@@ -23,7 +23,7 @@ class EnergiesController < ApplicationController
     puts "energy_controller.rb.#{__LINE__}. @the_date_str: #{@the_date_str}" 
 
     @the_date = Date.parse(@the_date_str) + 1.day
-    render turbo_stream: turbo_stream.replace('graph', partial: 'energies/hourly_graph', locals: { the_date: @the_date })
+    render turbo_stream: turbo_stream.replace('graph', partial: 'energies/graphs/hourly_graph', locals: { the_date: @the_date })
   end
   
   def decrement_date
