@@ -191,6 +191,8 @@ ChatGPT came up with a turbo solution. Doesn't seem like it's following the stan
 
 Turbo Streams introduces a <turbo-stream> element with seven basic actions: append, prepend, replace, update, remove, before, and after.
 
+Simple Bootstrap navbar. Tried Tailwind. Was trying for navbar that would highlight current page. Seems to require crafted jS. Should be a Hotwire way?
+
 ## ToDo
 
 Add auto updating
@@ -206,6 +208,9 @@ Record of data loading/importing-create table and at line at top
 Graphs of totals per day: For selectable time periods. Jan 5 to jan 25 e.g. Some present such as last year. Last month. Last 12 months And select received Del used etc
 
 Table sorting (now ascending by datetime). Pagy
+
+Remove Tailwind
+Remove simple_forms
 
 ### Some Timescaledb installation notes. Add any new items above this. Meant to be more like a footnote
 
