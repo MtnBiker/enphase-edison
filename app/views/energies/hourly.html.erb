@@ -11,7 +11,7 @@
 <!-- Submits to energies_controller, method process_date -->
 <%= form_tag process_date_path, method: :post, remote: true do %>
   <%= label_tag :the_date, 'Select a New Date to Display' %>
-  <%= date_field_tag :the_date, @the_date ||= Date.current - 30.days %>
+  <%= date_field_tag :the_date, @the_date ||= Date.current - 1.month %>
   <%= submit_tag 'Update graph for selected date' %>
 <% end %>
 
@@ -20,7 +20,10 @@
 <% end %>
 
 <%= render 'energies/graphs/hourly_graph' %>
-<!-- End turbo but may need to move this last line up -->
+<p>energies/graphs/hourly_graph</p>
+
+<p>Using data in the partial, Need to select the days as above</p>
+<%= render 'energies/graphs/hourly_day_vs_day' %>
 
 <hr class="border-bottom border-3 border-dark">
 
@@ -30,7 +33,7 @@
   <tbody>    
     <!-- view_day_by_day defined in energies_controller with reference to model day_by_day.rb-->
     <!-- Change this to only do table for the_date , the_date: the_date TODO -->
-    <% @hour_by_hours.reverse.each do |energy| %>
+    <% @hours.reverse.each do |energy| %>
       <%= render partial: 'hourly', locals: { energy: energy } %>
     <% end %>
   </tbody>

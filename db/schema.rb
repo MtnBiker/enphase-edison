@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_26_032254) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_01_195544) do
   create_schema "_timescaledb_cache"
   create_schema "_timescaledb_catalog"
   create_schema "_timescaledb_config"
@@ -34,16 +34,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_032254) do
   end
 
 
-  create_view "hour_by_hour", materialized: true, sql_definition: <<-SQL
-      SELECT time_bucket('PT1H'::interval, datetime, 'America/Los_Angeles'::text) AS datetime,
-      sum(enphase) AS enphase,
-      sum(from_sce) AS from_sce,
-      sum(to_sce) AS to_sce,
-      sum(((enphase + from_sce) - to_sce)) AS used
-     FROM energies
-    GROUP BY (time_bucket('PT1H'::interval, datetime, 'America/Los_Angeles'::text))
-    ORDER BY (time_bucket('PT1H'::interval, datetime, 'America/Los_Angeles'::text));
-  SQL
   create_view "month_by_months", materialized: true, sql_definition: <<-SQL
       SELECT time_bucket('P1M'::interval, datetime, 'America/Los_Angeles'::text) AS datetime,
       sum(enphase) AS enphase,
@@ -65,6 +55,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_032254) do
     ORDER BY (time_bucket('P1D'::interval, datetime, 'America/Los_Angeles'::text));
   SQL
   create_view "hour_by_hours", materialized: true, sql_definition: <<-SQL
+      SELECT time_bucket('PT1H'::interval, datetime, 'America/Los_Angeles'::text) AS datetime,
+      sum(enphase) AS enphase,
+      sum(from_sce) AS from_sce,
+      sum(to_sce) AS to_sce,
+      sum(((enphase + from_sce) - to_sce)) AS used
+     FROM energies
+    GROUP BY (time_bucket('PT1H'::interval, datetime, 'America/Los_Angeles'::text))
+    ORDER BY (time_bucket('PT1H'::interval, datetime, 'America/Los_Angeles'::text));
+  SQL
+  create_view "view_hours", sql_definition: <<-SQL
       SELECT time_bucket('PT1H'::interval, datetime, 'America/Los_Angeles'::text) AS datetime,
       sum(enphase) AS enphase,
       sum(from_sce) AS from_sce,

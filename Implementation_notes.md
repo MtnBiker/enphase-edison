@@ -193,6 +193,14 @@ Turbo Streams introduces a <turbo-stream> element with seven basic actions: appe
 
 Simple Bootstrap navbar. Tried Tailwind. Was trying for navbar that would highlight current page. Seems to require crafted jS. Should be a Hotwire way?
 
+2024.02.01 Materialized Views not auto updating or do I need to wait an hour? Or could I change to just Views. I don't think I need the performance benefit of a Materialized View
+Try creating view_hours using Mat View as sample
+What Are PostgreSQL Views? Why Should I Use Them? https://www.timescale.com/blog/how-postgresql-views-and-materialized-views-work-and-how-they-influenced-timescaledb-continuous-aggregates/
+rgm CreateViewHours
+rdm: No such file or directory @ rb_sysopen - /Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/solar_enphase_edison/db/views/view_hours_v01.sql > created and copied from hour_by_hours_v01.sql
+Change HourByHours to ViewHours
+Created model and controller and other changes.
+
 ## ToDo
 
 Add auto updating
