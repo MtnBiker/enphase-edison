@@ -201,17 +201,19 @@ rdm: No such file or directory @ rb_sysopen - /Users/gscar/Documents/Delicias/Ut
 Change HourByHours to ViewHours
 Created model and controller and other changes. See commit
 
-Now do same for daily and see if table updates when import Enphase data. I had imported Jan data for SCE, but not enphase so can't tell about updating.
+Now do same for daily and see if table updates when import Enphase data. I had imported Jan data for SCE, but not enphase so can't tell about updating. And monthly
+
+Now only plain Views and not Materialized Views (Don't have to worry about updating. Materialized Views are for large DBs)
+
+Importing working.
 
 ## ToDo
-
-Add auto updating
 
 Overlay hours for different days
 
 Arrow day by day next to select a day
 
-https://pganalyze.com/blog/materialized-views-ruby-rails Refresh tables
+`_import_buttons.html.erb`. Format. Add icons for Enphase and Edison.
 
 Record of data loading/importing-create table and at line at top
 
@@ -219,8 +221,11 @@ Graphs of totals per day: For selectable time periods. Jan 5 to jan 25 e.g. Some
 
 Table sorting (now ascending by datetime). Pagy
 
+Get rid of manual changes for importing
+
 Remove Tailwind
 Remove simple_forms
+Remove Scenic
 
 ### Some Timescaledb installation notes. Add any new items above this. Meant to be more like a footnote
 

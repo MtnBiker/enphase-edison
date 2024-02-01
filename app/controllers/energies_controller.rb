@@ -55,7 +55,7 @@ class EnergiesController < ApplicationController
   end
   
   def daily
-    @days = Day.all # DayByDay is using day from day.rb model
+    @days = Day.all
     render :daily # overriding routes. But why can't I use routes
     # @energies = Energy.all
      if params[:query].present?
@@ -65,6 +65,17 @@ class EnergiesController < ApplicationController
      end
   end
   
+  def monthly
+    @months = Month.all
+    render :monthly # overriding routes. But why can't I use routes
+    # @energies = Energy.all
+     if params[:query].present?
+       @pagy, @energies = pagy((Month.search_energies(params[:query])))
+     else
+       @pagy, @energies = pagy((Month.all))
+     end
+  end
+
   # Not working. Again ChatGPT.
   def change_daily_graph
     @the_date = params[:the_date]
@@ -80,17 +91,7 @@ class EnergiesController < ApplicationController
   #   render partial: "enerties/daily_graph", locals: {the_date: @the_date}
   # end
 
- def monthly
-    @month_by_months = MonthByMonth.all # DayByDay is using day_by_day from day_by_day.rb model
-    render :monthly # overriding routes. But why can't I use routes
-    # @energies = Energy.all
-     if params[:query].present?
-       @pagy, @energies = pagy((MonthByMonth.search_energies(params[:query])))
-     else
-       @pagy, @energies = pagy((MonthByMonth.all))
-     end
-  end
-  
+
   # All logic here, none in model
   def import_enphase
     file_to_import = (params[:file_to_import])

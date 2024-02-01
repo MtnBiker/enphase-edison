@@ -8,4 +8,3 @@ class Day < ApplicationRecord
     true
   end
 end
-

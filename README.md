@@ -1,8 +1,16 @@
 # README
 
+Beta, most of what is implemented works. The TODO list is long and evolving.
+
 Postgres timezone: America/Los_Angeles
 
 Time and Date are middle of the period, e.g., per day is reported as noon.
+
+##
+
+Rails 7, Ruby 3.3.0
+Postgres, but if views are supported I assume other databases will work. I originally implemented with Materialized Views but that is overkill for the limited data in this project.
+Migrations need to be sorted because of false starts, but I think I've commented out all the false starts
 
 ## Importing data
 
@@ -13,8 +21,9 @@ Data for both are every 15 min. Up to 3/22/2023 SCE was hourly and column Receiv
 ### Importing Enphase data
 
 From Enphase web page, hamburger, System, Reports: mail
-Change header to: datetime,enphase
-Import Enphase on main page
+File downloaded: <account_no>\_monthly_energy_report.csv and I rename with date added, eg. <account_no>\_monthly_energy_report2024.01.csv
+Change header in downloaded file to: `datetime,enphase` (from `Date/Time,Energy Produced (Wh)`)
+Import Enphase on any web page
 
 ### Importing SCE (aka Edison) data
 
