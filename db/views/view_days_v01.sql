@@ -7,4 +7,3 @@ SELECT
 FROM energies
 GROUP BY time_bucket('1 day', datetime, 'America/Los_Angeles')
 ORDER BY datetime;
--- this is for Materialized View. Same as for View, it's the migration that looks for this file

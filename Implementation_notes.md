@@ -199,7 +199,9 @@ What Are PostgreSQL Views? Why Should I Use Them? https://www.timescale.com/blog
 rgm CreateViewHours
 rdm: No such file or directory @ rb_sysopen - /Users/gscar/Documents/Delicias/Utilities, Energy and Solar/Solar Panels 2023-ABC/Solar production, etc/solar_enphase_edison/db/views/view_hours_v01.sql > created and copied from hour_by_hours_v01.sql
 Change HourByHours to ViewHours
-Created model and controller and other changes.
+Created model and controller and other changes. See commit
+
+Now do same for daily and see if table updates when import Enphase data. I had imported Jan data for SCE, but not enphase so can't tell about updating.
 
 ## ToDo
 

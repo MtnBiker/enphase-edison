@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_01_195544) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_01_203106) do
   create_schema "_timescaledb_cache"
   create_schema "_timescaledb_catalog"
   create_schema "_timescaledb_config"
@@ -73,6 +73,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_01_195544) do
      FROM energies
     GROUP BY (time_bucket('PT1H'::interval, datetime, 'America/Los_Angeles'::text))
     ORDER BY (time_bucket('PT1H'::interval, datetime, 'America/Los_Angeles'::text));
+  SQL
+  create_view "view_days", sql_definition: <<-SQL
+      SELECT time_bucket('P1D'::interval, datetime, 'America/Los_Angeles'::text) AS datetime,
+      sum(enphase) AS enphase,
+      sum(from_sce) AS from_sce,
+      sum(to_sce) AS to_sce,
+      sum(((enphase + from_sce) - to_sce)) AS used
+     FROM energies
+    GROUP BY (time_bucket('P1D'::interval, datetime, 'America/Los_Angeles'::text))
+    ORDER BY (time_bucket('P1D'::interval, datetime, 'America/Los_Angeles'::text));
   SQL
   create_hypertable "energies", time_column: "datetime", chunk_time_interval: "7 days", create_default_indexes: false
 end

@@ -55,13 +55,13 @@ class EnergiesController < ApplicationController
   end
   
   def daily
-    @day_by_days = DayByDay.all # DayByDay is using day_by_day from day_by_day.rb model
+    @days = Day.all # DayByDay is using day from day.rb model
     render :daily # overriding routes. But why can't I use routes
     # @energies = Energy.all
      if params[:query].present?
-       @pagy, @energies = pagy((DayByDay.search_energies(params[:query])))
+       @pagy, @energies = pagy((Day.search_energies(params[:query])))
      else
-       @pagy, @energies = pagy((DayByDay.all))
+       @pagy, @energies = pagy((Day.all))
      end
   end
   

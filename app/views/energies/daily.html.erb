@@ -21,7 +21,7 @@
 <table class="index-table">
   <%= render 'table_head' %>
   <tbody>    
-    <% @day_by_days.each do |energy| %>
+    <% @days.each do |energy| %>
       <%= render partial: 'energy', locals: { energy: energy } %>
     <% end %>
   </tbody>
