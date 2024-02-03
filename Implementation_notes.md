@@ -209,6 +209,11 @@ Importing working.
 
 https://github.com/JackC/tod Time of Day gem for overlay plots?
 
+Push to github. Set up on the site and follow this?
+git remote add origin https://github.com/MtnBiker/enphase-edison.git
+git push -u origin main
+Worked. Note app name is different than my local name.
+
 ## ToDo
 
 Arrow day by day next to select a day

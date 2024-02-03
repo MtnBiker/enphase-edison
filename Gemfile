@@ -32,22 +32,22 @@ gem "jbuilder"
 # Up to Kredis is app specific installs
 gem 'timescaledb'
 
-# https://github.com/JackC/tod Time of Day
+# https://github.com/JackC/tod Time of Day. For stripping date from datetime and used for overlapping graphs
 gem "tod"
 
-# gem "scenic"
+# gem "scenic" # for Materialized Views.
 
-gem 'whenever', require: false # for refreshing tables
+# gem 'whenever', require: false # for refreshing tables with Materialized Views which uptimately I didn't use.
 
 gem "pagy", "~> 6.2"
 
 gem "chartkick", "~> 5.0"
 
-gem "groupdate", "~> 6.4"
+gem "groupdate", "~> 6.4" # am I using this?
 
-gem "solargraph"
+gem "solargraph" # for Nova, the text editor I use.
 
-gem "simple_form"
+gem "simple_form" # tried it for something, but ultimately didn't use it.
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

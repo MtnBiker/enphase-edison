@@ -83,15 +83,18 @@ Thumbs.db
 # test is all default and I haven't done anything with it
 /test/*
 
-# Probably a mistake that thet're here
+# Probably a mistake that they're here
 /whenever/*
 /simple_form/*
 
 # detritus
 /app/models/old_models/*
 /app/controllers/old_controllers/*
-/SQK-queries/*
+/SQL-queries/*
 
 # found in crores and makes sense. Although don't know what the bang is for
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Others
+.nova
