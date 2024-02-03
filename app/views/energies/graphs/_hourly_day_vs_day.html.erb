@@ -14,12 +14,12 @@
     <% other_date = the_date - 3.days %>
 
   <div class="text-center font-weight-bold">
-     <h4>Production Hour by Hour for One day: <%= other_date.strftime("%d %b %Y") %> and Another day <%= the_date.strftime("%d %b %Y") %></h4>
+     <h4>Production Hour by Hour for</h4>
   
   <!-- For some reason just picking a date, it is 8 hours short, probably a time zone issue, but adding 0 hours fixes it UGLY and did it for other_date to be sure -->
-   <%= the_date = the_date + 0.hour %>
-   <%= other_date = other_date + 0.hour %>
-   <%= diff_days = the_date - other_date %>
+   <% the_date = the_date + 0.hour %>
+   <% other_date = other_date + 0.hour %>
+   <% diff_days = the_date - other_date %>
    
    <!-- debug to see confirm dates within a dy -->
    <%#= the_date = the_date + 2.hour %>
@@ -30,7 +30,7 @@
    <% other_date_time_span = other_date..other_date + 23.hour %>
    <!-- <p>the_date_time_span.class: <%= the_date_time_span.class %></p> -->
    
-   the_date_to_time: <%= Tod::TimeOfDay(the_date)%>, i.e., midnight <%#= Tod::TimeOfDay.parse(the_date )%>
+   <!-- the_date_to_time: <%= Tod::TimeOfDay(the_date)%>, i.e., midnight <%#= Tod::TimeOfDay.parse(the_date )%> -->
   <!-- <p>day_one_array:  -->
   <% day_one_array = Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase) %></p>
   <!-- <p>day_two_array: -->
@@ -41,50 +41,56 @@
     <!-- day_one_array.map.with_index { |x, i| x * i }: <%#=  day_one_array.map.with_index { |x, i| x * i } %> -->
     <!-- day_one_array[0]: <%= day_one_array[0] %> -->
   <!-- <p>day_one_array[0][0]: <%= day_one_array[0][0] %></p> -->
-  <p>44. Tod::TimeOfDay((day_one_array[0][0]): <%= Tod::TimeOfDay(day_one_array[0][0]) %></p>
+  <!-- <p>44. Tod::TimeOfDay((day_one_array[0][0]): <%= Tod::TimeOfDay(day_one_array[0][0]) %></p> -->
 
- <% day_one_no_date = [] %>
- <% i = 0 %>
- <% loop do  %>
-   <% break if day_one_array[i][0].blank? %>
-   <% tod_object = Tod::TimeOfDay(day_one_array[i][0]) %>
-   <p>1. <%= day_one_array[i][0] %>, <%= day_one_array[i][1] %> :: <%= tod_object.strftime("%H:%M:%S") %></p>
-   <p>tod_tod.: <%= tod_tod = tod_object.strftime("%H:%M:%S") %></p>
-   <% enphas = day_one_array[i][1] %>
-   <% day_one_no_date.push([Time.parse(tod_tod), enphas]) %>
-   <%  i += 1 %>
-   <% break if i == 24 %>
- <% end %>
- <p>day_one_no_date: <%= day_one_no_date %></p>
-<!-- <p> day_one_no_date :50:<%#= day_one_no_date = strip_date %>
- </p> -->
-<!-- <p> day_one_no_date: <%#= day_one_no_date %></p> -->
-    <% day_two_no_date = [] %>
-    <% i = 0 %>
-    <% loop do  %>
-      <% break if day_two_array[i][0].blank? %>
-      <% tod_object = Tod::TimeOfDay(day_two_array[i][0]) %>
-      <p>1. <%= day_two_array[i][0] %>, <%= day_two_array[i][1] %> :: <%= tod_object.strftime("%H:%M:%S") %></p>
-      <p>tod_tod.: <%= tod_tod = tod_object.strftime("%H:%M:%S") %></p>
-      <% enphas = day_two_array[i][1] %>
-      <% day_two_no_date.push([Time.parse(tod_tod), enphas]) %>
-      <%  i += 1 %>
-      <% break if i == 24 %>
-    <% end %>
-    <p>day_two_no_date: <%= day_two_no_date %></p>
+   <% day_one_no_date = [] %>
+   <% i = 0 %>
+   <% loop do  %>
+     <% break if day_one_array[i][0].blank? %>
+     <% tod_object = Tod::TimeOfDay(day_one_array[i][0]) %>
+     <!-- <p>1. <%= day_one_array[i][0] %>, <%= day_one_array[i][1] %> :: <%= tod_object.strftime("%H:%M:%S") %></p> -->
+     <!-- <p>tod_tod.: <%= tod_tod = tod_object.strftime("%H:%M:%S") %></p> -->
+     <% tod_tod = tod_object.strftime("%H:%M:%S") %>
+     <% enphas = day_one_array[i][1] %>
+     <% day_one_no_date.push([Time.parse(tod_tod), enphas]) %>
+     <%  i += 1 %>
+     <% break if i == 24 %>
+   <% end %>
+   <!-- <p>day_one_no_date: <%= day_one_no_date %></p> -->
+  <!-- <p> day_one_no_date :50:<%#= day_one_no_date = strip_date %>
+   </p> -->
+  <!-- <p> day_one_no_date: <%#= day_one_no_date %></p> -->
+  
+  <% day_two_no_date = [] %>
+  <% i = 0 %>
+  <% loop do  %>
+    <% break if day_two_array[i][0].blank? %>
+    <% tod_object = Tod::TimeOfDay(day_two_array[i][0]) %>
+    <!-- <p>1. <%= day_two_array[i][0] %>, <%= day_two_array[i][1] %> :: <%= tod_object.strftime("%H:%M:%S") %></p> -->
+    <!-- <p>tod_tod.: <%#= tod_tod = tod_object.strftime("%H:%M:%S") %></p> for debugging display-->
+    <% tod_tod = tod_object.strftime("%H:%M:%S") %>
+    <% enphas = day_two_array[i][1] %>
+    <% day_two_no_date.push([Time.parse(tod_tod), enphas]) %>
+    <%  i += 1 %>
+    <% break if i == 24 %>
+  <% end %>
+    <!-- <p>day_two_no_date: <%= day_two_no_date %></p> -->
     
-    <%= line_chart [
-      {name: "One day", data: Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase)},
-      {name: "Another day", data: Hour.where(datetime: the_date_time_span).pluck(:datetime, :enphase)}      
-      ]
-    %>
- <p>Testing that can get array into line_chart and it works</p> 
-    <%= line_chart [
-      {name: "Day One", data: day_one_no_date},
-      {name: "Day Two", data: day_two_no_date}      
-      ]
-    %>
-    <p>But need to strip the date to overlay plot.</p>
+  <!-- This has the abscissa as datetime, so spread out. Can DELETE -->
+  <!-- <%= line_chart [
+    {name: "One day", data: Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase)},
+    {name: "Another day", data: Hour.where(datetime: the_date_time_span).pluck(:datetime, :enphase)}      
+    ]
+  %> -->
+
+  <!-- Days overlaid -->
+  <%= line_chart [
+      {name: other_date.strftime("%d %b %Y"), data: day_two_no_date},
+      {name: the_date.strftime("%d %b %Y"), data: day_one_no_date}         
+    ]
+  %>
+  <p>Ignore the date in the abscissa</p>
+
     <!-- Hour[0]
   <#%= (Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase))[0] %> -->
   

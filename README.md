@@ -6,7 +6,7 @@ Beta, most of what is implemented works. The TODO list is long and evolving.
 
 ### Some setup notes
 
-Rails 7, Ruby 3.3.0
+Rails 7.1.2, Ruby 3.3.0. Current at time of initial build
 Look at Gemfile for added gems
 Bootstrap for formatting
 
