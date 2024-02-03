@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'increment_date', to: 'energies#increment_date'
   post 'change_daily_graph', to: 'energies#change_daily_graph'
   
+  get 'strip_date', to: 'energies#strip_date'
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Needed for simple_form_for to select date
   resources :hour_by_hours, only: [:index, :show]

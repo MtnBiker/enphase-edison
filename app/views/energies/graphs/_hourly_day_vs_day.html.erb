@@ -19,6 +19,7 @@
   <!-- For some reason just picking a date, it is 8 hours short, probably a time zone issue, but adding 0 hours fixes it UGLY and did it for other_date to be sure -->
    <%= the_date = the_date + 0.hour %>
    <%= other_date = other_date + 0.hour %>
+   <%= diff_days = the_date - other_date %>
    
    <!-- debug to see confirm dates within a dy -->
    <%#= the_date = the_date + 2.hour %>
@@ -29,24 +30,63 @@
    <% other_date_time_span = other_date..other_date + 23.hour %>
    <!-- <p>the_date_time_span.class: <%= the_date_time_span.class %></p> -->
    
-   
-  <p>day_one_array: <%= day_one_array = HourByHour.where(datetime: other_date_time_span).pluck(:datetime, :enphase) %></p>
-  <p>day_two_array: <%=  day_two_array = HourByHour.where(datetime: the_date_time_span).pluck(:datetime, :enphase) %></p>
+   the_date_to_time: <%= Tod::TimeOfDay(the_date)%>, i.e., midnight <%#= Tod::TimeOfDay.parse(the_date )%>
+  <!-- <p>day_one_array:  -->
+  <% day_one_array = Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase) %></p>
+  <!-- <p>day_two_array: -->
+  <% day_two_array = Hour.where(datetime: the_date_time_span).pluck(:datetime, :enphase) %></p>
     <!-- Could pass in a variable for number of days or do that in hourly -->
     
+    <!-- day_one_array.collect { |x| x + "!" : <%#= day_one_array.collect { |x| x + "!" }  %> no implicit conversion of String into Array -->
+    <!-- day_one_array.map.with_index { |x, i| x * i }: <%#=  day_one_array.map.with_index { |x, i| x * i } %> -->
+    <!-- day_one_array[0]: <%= day_one_array[0] %> -->
+  <!-- <p>day_one_array[0][0]: <%= day_one_array[0][0] %></p> -->
+  <p>44. Tod::TimeOfDay((day_one_array[0][0]): <%= Tod::TimeOfDay(day_one_array[0][0]) %></p>
+
+ <% day_one_no_date = [] %>
+ <% i = 0 %>
+ <% loop do  %>
+   <% break if day_one_array[i][0].blank? %>
+   <% tod_object = Tod::TimeOfDay(day_one_array[i][0]) %>
+   <p>1. <%= day_one_array[i][0] %>, <%= day_one_array[i][1] %> :: <%= tod_object.strftime("%H:%M:%S") %></p>
+   <p>tod_tod.: <%= tod_tod = tod_object.strftime("%H:%M:%S") %></p>
+   <% enphas = day_one_array[i][1] %>
+   <% day_one_no_date.push([Time.parse(tod_tod), enphas]) %>
+   <%  i += 1 %>
+   <% break if i == 24 %>
+ <% end %>
+ <p>day_one_no_date: <%= day_one_no_date %></p>
+<!-- <p> day_one_no_date :50:<%#= day_one_no_date = strip_date %>
+ </p> -->
+<!-- <p> day_one_no_date: <%#= day_one_no_date %></p> -->
+    <% day_two_no_date = [] %>
+    <% i = 0 %>
+    <% loop do  %>
+      <% break if day_two_array[i][0].blank? %>
+      <% tod_object = Tod::TimeOfDay(day_two_array[i][0]) %>
+      <p>1. <%= day_two_array[i][0] %>, <%= day_two_array[i][1] %> :: <%= tod_object.strftime("%H:%M:%S") %></p>
+      <p>tod_tod.: <%= tod_tod = tod_object.strftime("%H:%M:%S") %></p>
+      <% enphas = day_two_array[i][1] %>
+      <% day_two_no_date.push([Time.parse(tod_tod), enphas]) %>
+      <%  i += 1 %>
+      <% break if i == 24 %>
+    <% end %>
+    <p>day_two_no_date: <%= day_two_no_date %></p>
+    
     <%= line_chart [
-      {name: "One day", data: HourByHour.where(datetime: other_date_time_span).pluck(:datetime, :enphase)},
-      {name: "Another day", data: HourByHour.where(datetime: the_date_time_span).pluck(:datetime, :enphase)}      
+      {name: "One day", data: Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase)},
+      {name: "Another day", data: Hour.where(datetime: the_date_time_span).pluck(:datetime, :enphase)}      
       ]
     %>
-    <p>Testing that can get array into line_chart and it works</p>
+ <p>Testing that can get array into line_chart and it works</p> 
     <%= line_chart [
-      {name: "Day One", data: day_one_array},
-      {name: "Day Two", data: day_two_array}      
+      {name: "Day One", data: day_one_no_date},
+      {name: "Day Two", data: day_two_no_date}      
       ]
     %>
-    <!-- HourByHOur[0]
-  <#%= (HourByHour.where(datetime: other_date_time_span).pluck(:datetime, :enphase))[0] %> -->
+    <p>But need to strip the date to overlay plot.</p>
+    <!-- Hour[0]
+  <#%= (Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase))[0] %> -->
   
     <%# the_date_data =  %>
     

@@ -211,11 +211,11 @@ https://github.com/JackC/tod Time of Day gem for overlay plots?
 
 ## ToDo
 
-Overlay hours for different days
-
 Arrow day by day next to select a day
 
 `_import_buttons.html.erb`. Format. Add icons for Enphase and Edison.
+
+Overlays: \_hourly_day_vs_day.html.erb. Move logic off page. Detect end of day instead of hardwiring.
 
 Record of data loading/importing-create table and at line at top
 

@@ -1,5 +1,11 @@
 class EnergiesController < ApplicationController
   # before_action :set_energy, only: %i[ show edit update destroy ]
+  
+  def self.strip_date(array)
+    day_one_no_date = []
+    puts "energies_controller.rb:#{__LINE__}. now in strip_date"
+    # day_one_array.each item [0]: <%  array.each { |item| day_one_no_date <<  item [0]  } %>
+  end
     
   def process_date
     @the_date_str = params[:the_date]
@@ -55,17 +61,6 @@ class EnergiesController < ApplicationController
        @pagy, @energies = pagy((Month.all))
      end
   end
-
-  # Not working. Again ChatGPT.
-  # def change_daily_graph
-  #   @the_date = params[:the_date]
-  #   # Other processing logic here
-  # 
-  #   respond_to do |format|
-  #     format.html { redirect_to root_path }
-  #     format.js   # This will render change_daily_graph.js.erb by default
-  #   end
-  # end
 
   # All logic here, none in model
   def import_enphase
