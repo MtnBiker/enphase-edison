@@ -9,6 +9,8 @@ Time and Date are middle of the period, e.g., per day is reported as noon.
 ##
 
 Rails 7, Ruby 3.3.0
+Look at Gemfile for added gems
+
 Postgres, but if views are supported I assume other databases will work. I originally implemented with Materialized Views but that is overkill for the limited data in this project.
 Migrations need to be sorted because of false starts, but I think I've commented out all the false starts
 

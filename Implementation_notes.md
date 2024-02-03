@@ -207,6 +207,8 @@ Now only plain Views and not Materialized Views (Don't have to worry about updat
 
 Importing working.
 
+https://github.com/JackC/tod Time of Day gem for overlay plots?
+
 ## ToDo
 
 Overlay hours for different days
@@ -225,7 +227,6 @@ Get rid of manual changes for importing
 
 Remove Tailwind
 Remove simple_forms
-Remove Scenic
 
 ### Some Timescaledb installation notes. Add any new items above this. Meant to be more like a footnote
 

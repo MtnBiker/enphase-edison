@@ -32,7 +32,10 @@ gem "jbuilder"
 # Up to Kredis is app specific installs
 gem 'timescaledb'
 
-gem "scenic"
+# https://github.com/JackC/tod Time of Day
+gem "tod"
+
+# gem "scenic"
 
 gem 'whenever', require: false # for refreshing tables
 

@@ -1,22 +1,28 @@
 <!-- app/views/_import_buttons.html.erb -->
+<table>
+    <tbody>
+      <tr>
+        <th class=" border border-secondary border-3 rounded-3 p-2">
+          <%= form_with model: @energies, url: { action: "import_enphase" } do |form| %>
+            <%= image_tag("EnphaseLogo.png", height: '30', width: '30') %>
+            <%= form.label :file_to_import, "Import Enphase Data", class: "fs-3" %> 
+            <%= form.file_field :file_to_import %>
+            <%= submit_tag( "Import Enphase csv" ) %>
+          <% end %>
+        </th>
 
-<div class="container border border-secondary border-3 rounded-3 p-2">
-  <%= form_with model: @energies, url: { action: "import_enphase" } do |form| %>
-    <%= form.label :file_to_import, "Import Enphase report", class: "fs-3" %> 
-    <%= form.file_field :file_to_import %>
-    <%= submit_tag( "Import Enphase csv" ) %>
-  <% end %>
-</div>
-
-<div class="container border border-secondary border-3 rounded-3 p-2">
-  <!-- url is not intuitive to me. -->
-  <%= form_with model: @energies, url: { action: "import_edison" } do |form| %>
-    <%= form.label :file_to_import, "Import Edison Periodic Report", class: "fs-3" %> 
-    <%= form.file_field :file_to_import %>
-    <%= submit_tag( "Import Edison csv" ) %>
-  <% end %>
-</div>
-
+        <th class=" border border-secondary border-3 rounded-3 p-2">
+          <!-- url is not intuitive to me. -->
+          <%= form_with model: @energies, url: { action: "import_edison" } do |form| %>
+            <%= image_tag("SCElogo.jpg", height: '30', width: '30') %>
+            <%= form.label :file_to_import, "Import Edison Data", class: "fs-3" %> 
+            <%= form.file_field :file_to_import %>
+            <%= submit_tag( "Import Edison csv" ) %>
+          <% end %>
+          </th>
+      </tr>
+  </tbody>
+</table>
 <!-- Selecting date, is this a model for above
 process_date_path: energies#process_date, a method in energies controller
 <%#= form_tag process_date_path, method: :post, remote: true do %>

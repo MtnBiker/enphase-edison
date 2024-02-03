@@ -1,3 +1,4 @@
+# No longer in use. Using Hour
 class HourByHour< ApplicationRecord
   self.table_name = 'hour_by_hours' # Using a view in Rails. ChatGPT
   self.primary_key = "datetime"
