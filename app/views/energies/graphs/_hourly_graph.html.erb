@@ -21,10 +21,10 @@
     <% time_span = the_date..the_date + 24.hour %>
     
     <%= line_chart [
-    {name: "Enphase Produced", data: HourByHour.where(datetime: time_span).pluck(:datetime, :enphase)},
-    {name: "Sent to SCE", data: HourByHour.where(datetime: time_span).pluck(:datetime, :to_sce)},
-    {name: "From SCE", data: HourByHour.where(datetime: time_span).pluck(:datetime, :from_sce)},
-    {name: "Used", data: HourByHour.where(datetime: time_span).pluck(:datetime, :used)}
+    {name: "Enphase Produced", data: Hour.where(datetime: time_span).pluck(:datetime, :enphase)},
+    {name: "Sent to SCE", data: Hour.where(datetime: time_span).pluck(:datetime, :to_sce)},
+    {name: "From SCE", data: Hour.where(datetime: time_span).pluck(:datetime, :from_sce)},
+    {name: "Used", data: Hour.where(datetime: time_span).pluck(:datetime, :used)}
     ]%>    
   </div>
   

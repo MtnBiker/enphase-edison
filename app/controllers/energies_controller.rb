@@ -1,15 +1,6 @@
 class EnergiesController < ApplicationController
   # before_action :set_energy, only: %i[ show edit update destroy ]
-  
-  # Unneeded from ChatGPT
-  # def pick_date
-  #   # @selected_date = Date.current
-  #   # # Set an initial value for @the_date
-  #   # @the_date = Date.parse('2024-01-01')
-  #   # # Set a default value for @the_date if it's not already defined
-  #   # @the_date ||= Date.current
-  # end
-  
+    
   def process_date
     @the_date_str = params[:the_date]
     @the_date = Date.parse(@the_date_str)
@@ -29,17 +20,6 @@ class EnergiesController < ApplicationController
   def decrement_date
   end
   
-  # This was for Stimulus which wasn't the way to do what I needed 
-  # def process_date
-  #   @the_date = params[:the_date]
-  #   @the_date = Date.strptime(@the_date, '%Y-%m-%d') # being fed a string and need a date class
-  #   # Process the selected_date as needed
-  #   puts "energies_controller:#{__LINE__}. @the_date: #{@the_date}. @the_date.class: #{@the_date}.class"
-  #   render :_hourly_graph, locals: { theDate: @the_date }
-  # end
-
-  # GET /energies or /energies.json
-  # Nothing here since have hourly, daily, monthly
   def index
   end
   
@@ -77,20 +57,15 @@ class EnergiesController < ApplicationController
   end
 
   # Not working. Again ChatGPT.
-  def change_daily_graph
-    @the_date = params[:the_date]
-    # Other processing logic here
-  
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.js   # This will render change_daily_graph.js.erb by default
-    end
-  end
-  
   # def change_daily_graph
-  #   render partial: "enerties/daily_graph", locals: {the_date: @the_date}
+  #   @the_date = params[:the_date]
+  #   # Other processing logic here
+  # 
+  #   respond_to do |format|
+  #     format.html { redirect_to root_path }
+  #     format.js   # This will render change_daily_graph.js.erb by default
+  #   end
   # end
-
 
   # All logic here, none in model
   def import_enphase

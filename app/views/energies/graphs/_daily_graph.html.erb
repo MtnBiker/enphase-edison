@@ -8,10 +8,10 @@
 <div class="text-center font-weight-bold">
   <h4>Last Month</h4>
    <%= line_chart [
-     {name: "Enphase Produced", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :enphase)},
-     {name: "Sent to SCE", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :to_sce)},
-     {name: "From SCE", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :from_sce)},
-      {name: "Used", data: DayByDay.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :used)}
+     {name: "Enphase Produced", data: Day.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :enphase)},
+     {name: "Sent to SCE", data: Day.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :to_sce)},
+     {name: "From SCE", data: Day.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :from_sce)},
+      {name: "Used", data: Day.where(datetime: Date.today.last_month.beginning_of_month..Date.today.beginning_of_month).pluck(:datetime, :used)}
     ]%>    
 </div>
 <hr class="border-bottom border-3 border-dark">

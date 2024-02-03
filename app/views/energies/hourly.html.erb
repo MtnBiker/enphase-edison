@@ -18,11 +18,11 @@
 <%= form_tag increment_date_path, method: :post, remote: true do %>
   <%= button_to "Increment date. NG TBD" %>
 <% end %>
-
+<!-- <p>energies/graphs/hourly_graph</p> -->
 <%= render 'energies/graphs/hourly_graph' %>
-<p>energies/graphs/hourly_graph</p>
+<!-- <p>energies/graphs/hourly_graph</p> -->
 
-<p>Using data in the partial, Need to select the days as above</p>
+<p>Using data in the partial, Need to add select the days as above </p>
 <%= render 'energies/graphs/hourly_day_vs_day' %>
 
 <hr class="border-bottom border-3 border-dark">
@@ -34,8 +34,9 @@
     <!-- view_day_by_day defined in energies_controller with reference to model day_by_day.rb-->
     <!-- Change this to only do table for the_date , the_date: the_date TODO -->
     <% @hours.reverse.each do |energy| %>
-      <%= render partial: 'hourly', locals: { energy: energy } %>
+      <%#= render partial: 'hourly', locals: { energy: energy } %>
     <% end %>
+    <p>OFF temporarily or until turn Pagy back on</p>
   </tbody>
 </table>
 
@@ -44,6 +45,7 @@
 </div>
 
 <!-- Graphs/Charts -->
-<%= render "energies/graphs/graph_demos" %>
+<p>energies/graphs/graph_demos OFF</p>
+<%#= render "energies/graphs/graph_demos" %>
 
 <%= render 'import_buttons' %>
