@@ -6,6 +6,9 @@ Just got in on NEM 2.0. Our panels were installed Sept. 2023.
 
 Beta, most of what is implemented works. You have to import your own data. The TODO list is long and evolving.
 
+![alt text](app/assets/images/HourByHour.jpg)
+![alt text](https://github.com/MtnBiker/enphase-edison/blob/main/HourByHour.jpg?raw=true)
+
 ### Some setup notes
 
 Rails 7.1.2, Ruby 3.3.0. Current at time of initial build
