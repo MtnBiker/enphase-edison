@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'theDate', to: 'energies#theDate'
   post 'process_date', to: 'energies#process_date' # for hour by hour
   post 'date_one', to: 'energies#date_one' # for hour by hour comparison
+  post 'date_two', to: 'energies#date_two' # for hour by hour comparison
   post 'increment_date', to: 'energies#increment_date'
   post 'change_daily_graph', to: 'energies#change_daily_graph'
   

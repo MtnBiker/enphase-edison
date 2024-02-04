@@ -214,7 +214,7 @@ git remote add origin https://github.com/MtnBiker/enphase-edison.git
 git push -u origin main
 Worked. Note app name is different than my local name.
 
-Add select dates for overlay hourly
+Added select dates for overlay hourly
 
 ## ToDo
 
@@ -231,6 +231,8 @@ Graphs of totals per day: For selectable time periods. Jan 5 to jan 25 e.g. Some
 Table sorting (now ascending by datetime). Pagy
 
 Get rid of manual changes for importing
+
+Format of change dates for overlay chart needs help
 
 The following two aren't being used, but aren't adding much. Just want to make sure not being used
 Remove Tailwind gem

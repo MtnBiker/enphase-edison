@@ -10,29 +10,33 @@
       <% date_one = Date.current - 1.month %>
     <% end %>
     
+    <!-- Display the graph using the @the_date variable if it's defined -->
+    <% if defined? date_two %>
+      <!-- <p>Selected Date: <%= date_two %></p> -->
+    <% else %>
+      <!-- <p>No date selected yet</p> -->
+      <% date_two = Date.current - 1.month - 3.days %>
+    <% end %>
+    
     <!-- First trial Need to feed in the date-->
-    <% other_date = date_one - 3.days %>
+    <%# date_two = date_one - 3.days %>
 
   <div class="text-center font-weight-bold">
     <h4>Production Hour by Hour Comparison</h4>
   
-  <!-- For some reason just picking a date, it is 8 hours short, probably a time zone issue, but adding 0 hours fixes it UGLY and did it for other_date to be sure -->
+  <!-- For some reason just picking a date, it is 8 hours short, probably a time zone issue, but adding 0 hours fixes it UGLY and did it for date_two to be sure -->
    <% date_one = date_one + 0.hour %>
-   <% other_date = other_date + 0.hour %>
-   <% diff_days = date_one - other_date %>
-   
-   <!-- debug to see confirm dates within a dy -->
-   <%#= the_date = the_date + 2.hour %>
-   <%#= other_date = other_date + 2.hour %>
-   
+   <% date_two = date_two + 0.hour %>
+   <% diff_days = date_one - date_two %>
+      
    <!-- 23 gets from 00:00 to 23:00 but is that missing the 3 15 minute periods -->
    <% the_date_time_span = date_one..date_one + 23.hour %>
-   <% other_date_time_span = other_date..other_date + 23.hour %>
+   <% date_two_time_span = date_two..date_two + 23.hour %>
    <!-- <p>the_date_time_span.class: <%= the_date_time_span.class %></p> -->
    
    <!-- the_date_to_time: <%= Tod::TimeOfDay(date_one)%>, i.e., midnight <%#= Tod::TimeOfDay.parse(the_date )%> -->
   <!-- <p>day_one_array:  -->
-  <% day_one_array = Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase) %></p>
+  <% day_one_array = Hour.where(datetime: date_two_time_span).pluck(:datetime, :enphase) %></p>
   <!-- <p>day_two_array: -->
   <% day_two_array = Hour.where(datetime: the_date_time_span).pluck(:datetime, :enphase) %></p>
     <!-- Could pass in a variable for number of days or do that in hourly -->
@@ -78,40 +82,47 @@
     
   <!-- This has the abscissa as datetime, so spread out. Can DELETE -->
   <!-- <%= line_chart [
-    {name: "One day", data: Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase)},
+    {name: "One day", data: Hour.where(datetime: date_two_time_span).pluck(:datetime, :enphase)},
     {name: "Another day", data: Hour.where(datetime: the_date_time_span).pluck(:datetime, :enphase)}      
     ]
   %> -->
 
   <!-- Days overlaid. From array created above. -->
   <%= line_chart [
-      {name: other_date.strftime("%d %b %Y"), data: day_two_no_date},
+      {name: date_two.strftime("%d %b %Y"), data: day_two_no_date},
       {name: date_one.strftime("%d %b %Y"), data: day_one_no_date}         
     ]
   %>
   <p>Ignore the date in the abscissa</p>
   
+  <%= form_tag date_two_path, method: :post, remote: true do %>
+    <%= label_tag :date_two, 'Select a New Earliest Date to Display' %>
+    <%= date_field_tag :date_two, @date_two ||= Date.current - 1.month - 3.days %>
+    <%= submit_tag 'Update graph' %>
+  <% end %>
+  
   <!-- date_one defined in energies_controller -->
   <%= form_tag date_one_path, method: :post, remote: true do %>
-    <%= label_tag :date_one, 'Select a New Date to Display' %>
+    <%= label_tag :date_one, 'Select a New Later Date to Display' %>
     <%= date_field_tag :date_one, @date_one ||= Date.current - 1.month %>
-    <%= submit_tag 'Update graph for selected date' %>
+    <%= submit_tag 'Update graph' %>
   <% end %>
+  
 
     <!-- Hour[0]
-  <#%= (Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase))[0] %> -->
+  <#%= (Hour.where(datetime: date_two_time_span).pluck(:datetime, :enphase))[0] %> -->
   
     <%# the_date_data =  %>
     
-    <%# other_date_data = %>
+    <%# date_two_data = %>
     <%#= the_date_data.to_a %>
-    <!-- other_date_data.class : <%#= other_date_data.class %> -->
-    <%#= other_date_data.to_a %>
-  <!-- <p>  other_date_data.to_a.class : <%#= other_date_data.class %></p> -->
+    <!-- date_two_data.class : <%#= date_two_data.class %> -->
+    <%#= date_two_data.to_a %>
+  <!-- <p>  date_two_data.to_a.class : <%#= date_two_data.class %></p> -->
   
   <!-- <%#= line_chart [
       {name: "One day", data: the_date_data},
-      {name: "Another day", data: other_date_data}      
+      {name: "Another day", data: date_two_data}      
       ]
     %> -->
   </div>

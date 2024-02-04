@@ -21,6 +21,12 @@ class EnergiesController < ApplicationController
     render turbo_stream: turbo_stream.replace('hour-by-hour-graph', partial: 'energies/graphs/hourly_day_vs_day', locals: { date_one: @date_one })
   end
   
+  def date_two
+    @date_two_str = params[:date_two]
+    @date_two = Date.parse(@date_two_str)
+    render turbo_stream: turbo_stream.replace('hour-by-hour-graph', partial: 'energies/graphs/hourly_day_vs_day', locals: { date_two: @date_two })
+  end
+  
   def increment_date
     puts "energy_controller.rb.#{__LINE__}. More to come" 
     # Is :the_date available? If so:
