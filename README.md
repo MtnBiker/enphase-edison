@@ -1,6 +1,6 @@
 # README
 
-My attempt at viewing solar panel production which uses Enphase inverters. I am in Southern California and So Cal Edison (SCE) provides electricity otherwise. Just got in on NEM 2.0. Enphase and SCE both provide downloadable data. Our panels were installed Sept. 2023.
+My attempt at viewing solar panel production with Enphase inverters and with So Cal Edison (SCE) providing electricity otherwise. Just got in on NEM 2.0. Enphase and SCE both provide downloadable data. Our panels were installed Sept. 2023.
 
 Beta, most of what is implemented works. The TODO list is long and evolving.
 

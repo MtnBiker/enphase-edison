@@ -214,11 +214,13 @@ git remote add origin https://github.com/MtnBiker/enphase-edison.git
 git push -u origin main
 Worked. Note app name is different than my local name.
 
+Add select dates for overlay hourly
+
 ## ToDo
 
 Arrow day by day next to select a day
 
-`_import_buttons.html.erb`. Format. Add icons for Enphase and Edison.
+15 minute intervals for daily
 
 Overlays: \_hourly_day_vs_day.html.erb. Move logic off page. Detect end of day instead of hardwiring.
 
@@ -230,8 +232,9 @@ Table sorting (now ascending by datetime). Pagy
 
 Get rid of manual changes for importing
 
-Remove Tailwind
-Remove simple_forms
+The following two aren't being used, but aren't adding much. Just want to make sure not being used
+Remove Tailwind gem
+Remove simple_forms gem
 
 ### Some Timescaledb installation notes. Add any new items above this. Meant to be more like a footnote
 

@@ -27,6 +27,18 @@
     {name: "Used", data: Hour.where(datetime: time_span).pluck(:datetime, :used)}
     ]%>    
   </div>
-  
+  <!-- Select date to change display. Turbo logic in controller. Nice to move more of it here -->
+  <!-- Submits to energies_controller, method process_date -->
+  <!-- Probably should move to hourly_graph -->
+  <%= form_tag process_date_path, method: :post, remote: true do %>
+    <%= label_tag :the_date, 'Select a New Date to Display' %>
+    <%= date_field_tag :the_date, @the_date ||= Date.current - 1.month %>
+    <%= submit_tag 'Update graph for selected date' %>
+  <% end %>
+
+  <%= form_tag increment_date_path, method: :post, remote: true do %>
+    <%= button_to "Increment date. NG TBD" %>
+  <% end %>
+
   <hr class="border-bottom border-3 border-dark">
 </div>
