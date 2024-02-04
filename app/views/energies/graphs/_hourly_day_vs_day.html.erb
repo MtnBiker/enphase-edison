@@ -1,36 +1,36 @@
 <!-- app/views/energies/_hourly_graph.erb.html -->
-<div id="graph">
+<div id="hour-by-hour-graph">
   <hr class="border-bottom border-3 border-dark">
 
     <!-- Display the graph using the @the_date variable if it's defined -->
-    <% if defined? the_date %>
-      <!-- <p>Selected Date: <%= the_date %></p> -->
+    <% if defined? date_one %>
+      <!-- <p>Selected Date: <%= date_one %></p> -->
     <% else %>
       <!-- <p>No date selected yet</p> -->
-      <% the_date = Date.current - 1.month %>
+      <% date_one = Date.current - 1.month %>
     <% end %>
     
     <!-- First trial Need to feed in the date-->
-    <% other_date = the_date - 3.days %>
+    <% other_date = date_one - 3.days %>
 
   <div class="text-center font-weight-bold">
-     <h4>Production Hour by Hour for</h4>
+    <h4>Production Hour by Hour Comparison</h4>
   
   <!-- For some reason just picking a date, it is 8 hours short, probably a time zone issue, but adding 0 hours fixes it UGLY and did it for other_date to be sure -->
-   <% the_date = the_date + 0.hour %>
+   <% date_one = date_one + 0.hour %>
    <% other_date = other_date + 0.hour %>
-   <% diff_days = the_date - other_date %>
+   <% diff_days = date_one - other_date %>
    
    <!-- debug to see confirm dates within a dy -->
    <%#= the_date = the_date + 2.hour %>
    <%#= other_date = other_date + 2.hour %>
    
    <!-- 23 gets from 00:00 to 23:00 but is that missing the 3 15 minute periods -->
-   <% the_date_time_span = the_date..the_date + 23.hour %>
+   <% the_date_time_span = date_one..date_one + 23.hour %>
    <% other_date_time_span = other_date..other_date + 23.hour %>
    <!-- <p>the_date_time_span.class: <%= the_date_time_span.class %></p> -->
    
-   <!-- the_date_to_time: <%= Tod::TimeOfDay(the_date)%>, i.e., midnight <%#= Tod::TimeOfDay.parse(the_date )%> -->
+   <!-- the_date_to_time: <%= Tod::TimeOfDay(date_one)%>, i.e., midnight <%#= Tod::TimeOfDay.parse(the_date )%> -->
   <!-- <p>day_one_array:  -->
   <% day_one_array = Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase) %></p>
   <!-- <p>day_two_array: -->
@@ -83,13 +83,20 @@
     ]
   %> -->
 
-  <!-- Days overlaid -->
+  <!-- Days overlaid. From array created above. -->
   <%= line_chart [
       {name: other_date.strftime("%d %b %Y"), data: day_two_no_date},
-      {name: the_date.strftime("%d %b %Y"), data: day_one_no_date}         
+      {name: date_one.strftime("%d %b %Y"), data: day_one_no_date}         
     ]
   %>
   <p>Ignore the date in the abscissa</p>
+  
+  <!-- date_one defined in energies_controller -->
+  <%= form_tag date_one_path, method: :post, remote: true do %>
+    <%= label_tag :date_one, 'Select a New Date to Display' %>
+    <%= date_field_tag :date_one, @date_one ||= Date.current - 1.month %>
+    <%= submit_tag 'Update graph for selected date' %>
+  <% end %>
 
     <!-- Hour[0]
   <#%= (Hour.where(datetime: other_date_time_span).pluck(:datetime, :enphase))[0] %> -->

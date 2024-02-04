@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   
   # For picking date for hourly graph
   get 'theDate', to: 'energies#theDate'
-  post 'process_date', to: 'energies#process_date'
+  post 'process_date', to: 'energies#process_date' # for hour by hour
+  post 'date_one', to: 'energies#date_one' # for hour by hour comparison
   post 'increment_date', to: 'energies#increment_date'
   post 'change_daily_graph', to: 'energies#change_daily_graph'
   

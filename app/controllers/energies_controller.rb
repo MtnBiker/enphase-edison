@@ -7,10 +7,18 @@ class EnergiesController < ApplicationController
     # day_one_array.each item [0]: <%  array.each { |item| day_one_no_date <<  item [0]  } %>
   end
     
+  # hourly_graph
   def process_date
-    @the_date_str = params[:the_date]
-    @the_date = Date.parse(@the_date_str)
+    # @the_date_str = params[:the_date]
+    @the_date = Date.parse(params[:the_date])
     render turbo_stream: turbo_stream.replace('graph', partial: 'energies/graphs/hourly_graph', locals: { the_date: @the_date })
+  end
+  
+  # Overlay chart
+  def date_one
+    @date_one_str = params[:date_one]
+    @date_one = Date.parse(@date_one_str)
+    render turbo_stream: turbo_stream.replace('hour-by-hour-graph', partial: 'energies/graphs/hourly_day_vs_day', locals: { date_one: @date_one })
   end
   
   def increment_date
