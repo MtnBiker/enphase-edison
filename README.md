@@ -6,8 +6,7 @@ Just got in on NEM 2.0. Our panels were installed Sept. 2023.
 
 Beta, most of what is implemented works. You have to import your own data. The TODO list is long and evolving.
 
-![alt text](app/assets/images/HourByHour.jpg)
-![Screen shot of Hours page][HourbyHour](app/assets/images/HourbyHour.jpg)
+![Screen shot of Hours page](app/assets/images/HourbyHour.jpg)
 
 ### Some setup notes
 
