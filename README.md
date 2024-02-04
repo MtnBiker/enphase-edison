@@ -7,6 +7,7 @@ Just got in on NEM 2.0. Our panels were installed Sept. 2023.
 Beta, most of what is implemented works. You have to import your own data. The TODO list is long and evolving.
 
 ![Screen shot of Hours page](app/assets/images/HourbyHour.jpg)
+Sample page.
 
 ### Some setup notes
 
@@ -50,8 +51,6 @@ From SCE site, Data Sharing and Download from left menu, click Download, click >
 In the downloaded file (or a copy of it) Delete initial headers, double quotes and empty lines (get two returns with empty line and replace with a single return).
 
 Button on bottom of pages in this app to Import
-
-2024.02.01 Materialized Views not auto updating
 
 Note about downloaded SCE data:
 SCE data is day by day in two parts: delivered and received so difficult to parse. See energy.rb

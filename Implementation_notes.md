@@ -216,6 +216,8 @@ Worked. Note app name is different than my local name.
 
 Added select dates for overlay hourly
 
+Removed SQL-queries from GitHub. Had added to .gitignore, but had already committed them
+
 ## ToDo
 
 Arrow day by day next to select a day
